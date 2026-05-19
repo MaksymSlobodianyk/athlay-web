@@ -30,8 +30,8 @@
     --bg: #0a0a0b;
     --bg-2: #111114;
     --fg: #f4f4f1;
-    --dim: #6b6b70;
-    --dim-2: #3a3a3e;
+    --dim: #8a8a8e;
+    --dim-2: #6b6b70;
     --line: #1a1a1d;
     --line-2: #232328;
     --accent: oklch(0.78 0.17 145);
@@ -179,10 +179,11 @@
   }
   .prose a {
     color: var(--accent);
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .prose a:hover {
-    text-decoration: underline;
+    text-decoration-color: var(--fg);
   }
   .prose strong {
     color: var(--fg);
@@ -199,7 +200,7 @@
     color: var(--dim-2);
     flex-shrink: 0;
   }
-  .legal a { color: var(--dim); text-decoration: none; transition: color 0.2s; }
+  .legal a { color: var(--dim); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--dim-2); transition: color 0.2s; }
   .legal a:hover { color: var(--fg); }
   .legal .sep { color: var(--dim-2); margin: 0 6px; }
 
@@ -220,7 +221,7 @@
   <div class="map" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a href="../" class="brand">
+    <a href="../" class="brand" aria-label="Athlay — home">
       <img src="../assets/athlay-logo.png" alt="" />
       <span>Athlay</span>
     </a>
