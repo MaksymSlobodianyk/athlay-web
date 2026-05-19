@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Support — Athlay</title>
+<meta name="description" content="Get help with Athlay. Contact our support team with questions, bug reports, or feedback." />
+<link rel="canonical" href="https://athlay.app/support" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Maksym Slobodianyk" />
+<meta name="application-name" content="Athlay" />
+<meta name="theme-color" content="#0a0a0b" />
+<meta name="color-scheme" content="dark" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Athlay" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Athlay" />
+<meta property="og:title" content="Support — Athlay" />
+<meta property="og:description" content="Get help with Athlay. Contact our support team with questions, bug reports, or feedback." />
+<meta property="og:url" content="https://athlay.app/support" />
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/athlay-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-2: #111114;
+    --fg: #f4f4f1;
+    --dim: #6b6b70;
+    --dim-2: #3a3a3e;
+    --line: #1a1a1d;
+    --line-2: #232328;
+    --accent: oklch(0.78 0.17 145);
+    --accent-soft: oklch(0.78 0.17 145 / 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ───── map grid background ───── */
+  .map {
+    position: fixed; inset: -2px;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px),
+      linear-gradient(var(--line-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at center, black 20%, transparent 78%);
+            mask-image: radial-gradient(ellipse 80% 80% at center, black 20%, transparent 78%);
+    animation: pan 80s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes pan {
+    to { background-position: 80px 80px, 80px 80px, 16px 16px, 16px 16px; }
+  }
+
+  /* faint ambient glow */
+  .glow {
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse 50% 40% at 50% 50%, var(--accent-soft), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ───── top bar ───── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 24px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dim);
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .brand img {
+    width: 26px; height: 26px; border-radius: 6px;
+    box-shadow: 0 0 0 1px var(--line-2);
+  }
+  .brand span {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .back-link {
+    color: var(--dim);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--fg); }
+  .back-link::before { content: "←"; }
+
+  /* ───── hero ───── */
+  .hero {
+    position: relative;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: 80px 32px 24px;
+  }
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .stage h1 {
+    font-size: clamp(30px, 6vw, 50px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--fg);
+  }
+  .stage p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--dim);
+    max-width: 380px;
+  }
+  .divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--line-2);
+    margin: 4px 0;
+  }
+  .email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #0a0a0b;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 999px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .email-btn:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+  .email-btn:active { transform: translateY(0); }
+  .note {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--dim-2);
+    margin-top: -4px;
+  }
+
+  /* ───── footer ───── */
+  .legal {
+    position: relative;
+    text-align: center;
+    padding: 18px 24px 22px;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--dim-2);
+    flex-shrink: 0;
+  }
+  .legal a { color: var(--dim); text-decoration: none; transition: color 0.2s; }
+  .legal a:hover { color: var(--fg); }
+  .legal .sep { color: var(--dim-2); margin: 0 6px; }
+
+  /* ───── responsive ───── */
+  @media (max-width: 540px) {
+    .topbar { padding: 16px 20px; }
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 16px; }
+    .hero { padding: 70px 20px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .map { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="map" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a href="index.html" class="brand">
+      <img src="assets/athlay-logo.png" alt="" />
+      <span>Athlay</span>
+    </a>
+    <a href="index.html" class="back-link">Home</a>
+  </header>
+
+  <main class="hero">
+    <div class="stage">
+      <span class="eyebrow">Support</span>
+      <h1>We're here to help</h1>
+      <p>Have a question about Athlay, found a bug, or want to share feedback? Send us a message and we'll get back to you as soon as possible.</p>
+
+      <hr class="divider" />
+
+      <a href="mailto:support@athlay.app" class="email-btn">
+        support@athlay.app
+      </a>
+      <p class="note">Typically responds within 24 hours</p>
+    </div>
+  </main>
+
+  <footer class="legal">
+    © 2026 Maksym Slobodianyk · Uralská 689/7, Bubeneč, 160 00 Prague, Czech Republic · IČO 24055557<br />
+    <a href="privacy.html">Privacy Policy</a><span class="sep">·</span><a href="support.html">Support</a>
+  </footer>
+
+</body>
+</html>

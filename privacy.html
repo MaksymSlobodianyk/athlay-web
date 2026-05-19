@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — Athlay</title>
+<meta name="description" content="Athlay privacy policy — how we collect, use, and protect your information." />
+<link rel="canonical" href="https://athlay.app/privacy" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Maksym Slobodianyk" />
+<meta name="application-name" content="Athlay" />
+<meta name="theme-color" content="#0a0a0b" />
+<meta name="color-scheme" content="dark" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Athlay" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Athlay" />
+<meta property="og:title" content="Privacy Policy — Athlay" />
+<meta property="og:description" content="Athlay privacy policy — how we collect, use, and protect your information." />
+<meta property="og:url" content="https://athlay.app/privacy" />
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/athlay-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-2: #111114;
+    --fg: #f4f4f1;
+    --dim: #6b6b70;
+    --dim-2: #3a3a3e;
+    --line: #1a1a1d;
+    --line-2: #232328;
+    --accent: oklch(0.78 0.17 145);
+    --accent-soft: oklch(0.78 0.17 145 / 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ───── map grid background ───── */
+  .map {
+    position: fixed; inset: -2px;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px),
+      linear-gradient(var(--line-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at center, black 0%, transparent 75%);
+            mask-image: radial-gradient(ellipse 100% 100% at center, black 0%, transparent 75%);
+    animation: pan 80s linear infinite;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  @keyframes pan {
+    to { background-position: 80px 80px, 80px 80px, 16px 16px, 16px 16px; }
+  }
+
+  /* ───── top bar ───── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 20px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+    background: linear-gradient(to bottom, var(--bg) 55%, transparent 100%);
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .brand img {
+    width: 26px; height: 26px; border-radius: 6px;
+    box-shadow: 0 0 0 1px var(--line-2);
+  }
+  .brand span {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .back-link {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--fg); }
+  .back-link::before { content: "←"; }
+
+  /* ───── content wrapper ───── */
+  .content {
+    position: relative;
+    flex: 1;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 100px 32px 64px;
+  }
+
+  /* ───── prose ───── */
+  .prose h1 {
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--fg);
+    margin-bottom: 10px;
+  }
+  .prose .effective {
+    display: block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 52px;
+  }
+  .prose h2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 52px 0 14px;
+    padding-top: 52px;
+    border-top: 1px solid var(--line-2);
+    letter-spacing: -0.01em;
+  }
+  .prose h3 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 28px 0 10px;
+  }
+  .prose p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(244, 244, 241, 0.75);
+    margin-bottom: 14px;
+  }
+  .prose ul {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+  }
+  .prose ul li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(244, 244, 241, 0.75);
+    padding: 3px 0 3px 20px;
+    position: relative;
+  }
+  .prose ul li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .prose a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .prose a:hover {
+    text-decoration: underline;
+  }
+  .prose strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  /* ───── footer ───── */
+  .legal {
+    position: relative;
+    text-align: center;
+    padding: 18px 24px 22px;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--dim-2);
+    flex-shrink: 0;
+  }
+  .legal a { color: var(--dim); text-decoration: none; transition: color 0.2s; }
+  .legal a:hover { color: var(--fg); }
+  .legal .sep { color: var(--dim-2); margin: 0 6px; }
+
+  /* ───── responsive ───── */
+  @media (max-width: 600px) {
+    .topbar { padding: 16px 20px; }
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 16px; }
+    .content { padding: 88px 20px 48px; }
+    .prose h2 { margin: 40px 0 12px; padding-top: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .map { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="map" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a href="index.html" class="brand">
+      <img src="assets/athlay-logo.png" alt="" />
+      <span>Athlay</span>
+    </a>
+    <a href="index.html" class="back-link">Home</a>
+  </header>
+
+  <main class="content">
+    <article class="prose">
+      <h1>Privacy Policy</h1>
+      <span class="effective">Effective 1 March 2026</span>
+
+      <p>This privacy policy applies to the Athlay app (hereby referred to as "Application") for mobile devices that was created by Maksym Slobodianyk (hereby referred to as "Service Provider") as a Commercial service. This service is intended for use "AS IS".</p>
+
+      <h2>Information Collection and Use</h2>
+      <p>The Application collects information when you download and use it.</p>
+
+      <h3>2.1 Information You Provide</h3>
+      <p>When you create an account and use Athlay, we collect:</p>
+      <ul>
+        <li>Profile information (name, email address, profile picture)</li>
+        <li>Account credentials</li>
+        <li>User preferences and settings</li>
+        <li>Your device's Internet Protocol address (e.g. IP address)</li>
+        <li>The pages of the Application that you visit, the time and date of your visit, and the time spent on those pages</li>
+        <li>The operating system you use on your mobile device</li>
+      </ul>
+
+      <h3>2.2 Information From Connected Apps and Devices</h3>
+      <p>When you connect Athlay to other fitness apps or devices, we may collect:</p>
+      <ul>
+        <li>GPS routes and location data</li>
+        <li>Workout statistics (distance, pace, duration, calories burned)</li>
+        <li>Heart rate and other biometric data</li>
+        <li>Performance metrics</li>
+        <li>Any other fitness data provided by connected apps</li>
+        <li>Profile data from connected apps when appropriate</li>
+      </ul>
+      <p>This data is accessed via connected third-party services (e.g. Strava) solely to render overlays on your device. It is proxied in real-time and is <strong>never stored or retained on the Service Provider's servers</strong>. It may be temporarily cached on your device as part of normal app operation.</p>
+
+      <h2>Third Party Access</h2>
+      <p>The Application uses PostHog for anonymous usage analytics. Only aggregated, anonymized behavioral data (e.g. feature usage, screen views) is transmitted to PostHog. No fitness, health, or personally identifiable data is shared with PostHog.</p>
+      <p>The Service Provider may share your information with third parties only in the ways described in this privacy policy.</p>
+      <p>Below are links to the Privacy Policies of third-party service providers used by the Application:</p>
+      <ul>
+        <li><a href="https://www.strava.com/legal/privacy" target="_blank" rel="noopener noreferrer">Strava</a></li>
+        <li><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">RevenueCat</a></li>
+        <li><a href="https://posthog.com/privacy" target="_blank" rel="noopener noreferrer">PostHog</a></li>
+      </ul>
+      <p>The Service Provider may disclose information:</p>
+      <ul>
+        <li>As required by law, such as to comply with a subpoena or similar legal process;</li>
+        <li>When they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;</li>
+        <li>With trusted service providers who work on their behalf, do not have an independent use of the information disclosed to them, and have agreed to adhere to the rules set forth in this privacy policy.</li>
+      </ul>
+
+      <h2>Opt-Out Rights</h2>
+      <p>You can stop all collection of information by the Application by uninstalling it. You may use the standard uninstall processes available on your mobile device or via the mobile application marketplace.</p>
+      <p>You may also revoke the Application's access to your connected accounts (e.g. Strava) at any time through the respective account settings of those services.</p>
+
+      <h2>Data Retention Policy</h2>
+      <p>The Service Provider does not retain fitness or health data on its servers. Such data is processed transiently to deliver app functionality and remains on your device only.</p>
+      <p>Basic account information (such as your email address) is retained for as long as you use the Application and for a reasonable time thereafter. If you would like this data to be deleted, please contact <a href="mailto:support@athlay.app">support@athlay.app</a> and the Service Provider will respond within a reasonable time.</p>
+
+      <h2>Children</h2>
+      <p>The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13. The Application is not intended for anyone under the age of 13. If the Service Provider discovers that a child under 13 has provided personal information, it will be immediately deleted. If you are a parent or guardian and believe your child has provided personal information, please contact <a href="mailto:support@athlay.app">support@athlay.app</a>.</p>
+
+      <h2>Security</h2>
+      <p>The Service Provider is committed to safeguarding the confidentiality of your information and provides physical, electronic, and procedural safeguards to protect the information it processes and maintains.</p>
+
+      <h2>Changes</h2>
+      <p>This Privacy Policy may be updated from time to time. The Service Provider will notify you of any changes by updating this page. You are advised to review this Privacy Policy regularly, as continued use of the Application constitutes acceptance of any changes.</p>
+
+      <h2>Your Consent</h2>
+      <p>By using the Application, you consent to the processing of your information as described in this Privacy Policy, as amended from time to time.</p>
+
+      <h2>Contact Us</h2>
+      <p>If you have any questions regarding privacy while using the Application, please contact the Service Provider at <a href="mailto:support@athlay.app">support@athlay.app</a>.</p>
+    </article>
+  </main>
+
+  <footer class="legal">
+    © 2026 Maksym Slobodianyk · Uralská 689/7, Bubeneč, 160 00 Prague, Czech Republic · IČO 24055557<br />
+    <a href="privacy.html">Privacy Policy</a><span class="sep">·</span><a href="support.html">Support</a>
+  </footer>
+
+</body>
+</html>

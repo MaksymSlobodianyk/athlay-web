@@ -152,7 +152,7 @@
   .route-glow {
     stroke: var(--accent);
     stroke-width: 90;
-    filter: blur(28px);
+    filter: url(#glow);
     opacity: 0.55;
   }
   .pacer {
@@ -263,6 +263,9 @@
     flex-shrink: 0;
   }
   .legal::selection { background: var(--accent-soft); }
+  .legal a { color: var(--dim); text-decoration: none; transition: color 0.2s; }
+  .legal a:hover { color: var(--fg); }
+  .legal .sep { color: var(--dim-2); margin: 0 6px; }
 
   /* ───── responsive ───── */
   @media (max-width: 760px) {
@@ -331,6 +334,12 @@
   <main class="hero">
     <div class="stage">
       <svg class="logo-a" id="wm" viewBox="0 50 1143 1100" preserveAspectRatio="xMidYMid meet" aria-label="Athlay">
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"
+                  color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="89" />
+          </filter>
+        </defs>
         <!-- accent glow underneath -->
         <path class="route-glow" id="routeGlow" d="" />
         <!-- main outline -->
@@ -385,7 +394,8 @@
   </main>
 
   <footer class="legal">
-    © 2026 Maksym Slobodianyk · Uralská 689/7, Bubeneč, 160 00 Prague, Czech Republic · IČO 24055557
+    © 2026 Maksym Slobodianyk · Uralská 689/7, Bubeneč, 160 00 Prague, Czech Republic · IČO 24055557<br />
+    <a href="privacy.html">Privacy Policy</a><span class="sep">·</span><a href="support.html">Support</a>
   </footer>
 
 <script>
