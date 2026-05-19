@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Athlay — Visualize your workouts</title>
+<meta name="description" content="Athlay turns your workouts into beautiful, shareable maps. Coming soon to iOS." />
+<link rel="icon" type="image/png" href="assets/athlay-logo.png" />
+<link rel="apple-touch-icon" href="assets/athlay-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-2: #111114;
+    --fg: #f4f4f1;
+    --dim: #6b6b70;
+    --dim-2: #3a3a3e;
+    --line: #1a1a1d;
+    --line-2: #232328;
+    /* run (default) */
+    --accent: oklch(0.78 0.17 145);
+    --accent-soft: oklch(0.78 0.17 145 / 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* ───── map grid background ───── */
+  .map {
+    position: fixed; inset: -2px;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px),
+      linear-gradient(var(--line-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at center, black 20%, transparent 78%);
+            mask-image: radial-gradient(ellipse 80% 80% at center, black 20%, transparent 78%);
+    animation: pan 80s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes pan {
+    to { background-position: 80px 80px, 80px 80px, 16px 16px, 16px 16px; }
+  }
+
+  /* faint ambient glow that follows accent */
+  .glow {
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse 50% 40% at 50% 50%, var(--accent-soft), transparent 70%);
+    pointer-events: none;
+    transition: background 0.6s ease;
+  }
+
+  /* ───── top bar ───── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 24px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dim);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--fg); }
+  .brand img {
+    width: 26px; height: 26px; border-radius: 6px;
+    box-shadow: 0 0 0 1px var(--line-2);
+  }
+  .brand span {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .live { display: flex; align-items: center; gap: 10px; }
+  .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: pulse 1.6s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 color-mix(in oklch, var(--accent) 60%, transparent); }
+    100% { box-shadow: 0 0 0 10px transparent; }
+  }
+  .clock { color: var(--fg); font-variant-numeric: tabular-nums; }
+
+  /* ───── hero ───── */
+  .hero {
+    position: relative; flex: 1;
+    display: grid; place-items: center;
+    padding: 80px 32px 24px;
+  }
+  .stage {
+    width: 100%; max-width: 720px;
+    display: flex; flex-direction: column; align-items: stretch;
+    gap: clamp(16px, 3vh, 28px);
+  }
+
+  /* logo A — route style */
+  .logo-a {
+    display: block;
+    width: 100%;
+    max-width: min(360px, 42vh);
+    height: auto;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  .route, .route-glow {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .route { stroke: var(--fg); stroke-width: 32; }
+  .route-glow {
+    stroke: var(--accent);
+    stroke-width: 90;
+    filter: blur(28px);
+    opacity: 0.55;
+  }
+  .pacer {
+    fill: var(--accent);
+    filter: drop-shadow(0 0 16px var(--accent)) drop-shadow(0 0 36px var(--accent));
+  }
+  .pacer-core { fill: var(--fg); }
+
+  /* stats */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line-2);
+  }
+  .stat { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .stat .v {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 26px; font-weight: 500;
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .stat .u { color: var(--dim); font-size: 16px; margin-left: 2px; }
+  .stat .l {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--dim);
+  }
+
+  /* ───── tagline ───── */
+  .tagline {
+    display: flex; flex-direction: column; gap: 10px;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .rotator {
+    display: grid;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .rotator .phrase {
+    grid-column: 1; grid-row: 1;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    will-change: opacity, transform;
+    white-space: nowrap;
+  }
+  .rotator .phrase.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .tagline h2 {
+    font-size: clamp(15px, 2.1vw, 20px); font-weight: 500; line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .tagline h2 em {
+    font-style: normal;
+    color: var(--accent);
+    transition: color 0.6s ease;
+  }
+  .tagline p {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--dim);
+    text-transform: none;
+  }
+  .tagline p .dot-sep { color: var(--dim-2); margin: 0 6px; }
+
+  /* ───── mode switcher ───── */
+  .modes {
+    align-self: center;
+    display: flex; gap: 2px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+    margin-top: 8px;
+  }
+  .mode {
+    background: none; border: none; cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dim);
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .mode:hover:not(.active) { color: var(--fg); }
+  .mode.active {
+    background: var(--accent);
+    color: #0a0a0b;
+    font-weight: 500;
+  }
+
+  /* ───── legal footer ───── */
+  .legal {
+    text-align: center;
+    padding: 18px 24px 22px;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--dim-2);
+    flex-shrink: 0;
+  }
+  .legal::selection { background: var(--accent-soft); }
+
+  /* ───── responsive ───── */
+  @media (max-width: 760px) {
+    .topbar { padding: 16px 20px; font-size: 10px; letter-spacing: 0.14em; }
+    .brand span { font-size: 16px; }
+    .brand img { width: 24px; height: 24px; }
+    .hero { padding: 70px 20px 24px; }
+    .stage { gap: clamp(14px, 2.5vh, 22px); max-width: 480px; }
+    .logo-a { max-width: min(72vw, 280px); }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 16px 20px; padding-top: 16px; }
+    .stat .v { font-size: 18px; }
+    .stat .u { font-size: 13px; }
+    .stat .l { font-size: 9px; letter-spacing: 0.16em; }
+    .tagline h2 { font-size: 16px; }
+    .tagline h2 em { display: block; margin-top: 2px; }
+    .rotator .phrase { white-space: normal; }
+    .tagline p { font-size: 12px; }
+    .modes { margin-top: 4px; }
+    .mode { padding: 9px 14px; font-size: 10px; letter-spacing: 0.12em; }
+  }
+  @media (max-width: 420px) {
+    .topbar { padding: 14px 16px; }
+    .brand { gap: 8px; }
+    .brand span { font-size: 15px; }
+    .brand img { width: 22px; height: 22px; }
+    .live { font-size: 9px; letter-spacing: 0.12em; }
+    .hero { padding: 60px 16px 20px; }
+    .logo-a { max-width: min(78vw, 240px); }
+    .stat .v { font-size: 16px; }
+    .stat .u { font-size: 12px; }
+    .tagline h2 { font-size: 15px; }
+    .mode { padding: 8px 10px; font-size: 9.5px; letter-spacing: 0.1em; }
+  }
+  /* short viewports (landscape phones) */
+  @media (max-height: 600px) and (orientation: landscape) {
+    .hero { padding: 56px 20px 16px; }
+    .stage { gap: 14px; }
+    .logo-a { max-width: min(28vh, 200px); }
+    .stats { padding-top: 10px; }
+    .stat .v { font-size: 16px; }
+    .tagline h2 { font-size: 16px; }
+  }
+
+  /* accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .map { animation: none; }
+    .pulse { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="map" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/athlay-logo.png" alt="" />
+      <span>Athlay</span>
+    </div>
+    <div class="live">
+      <span class="pulse" aria-hidden="true"></span>
+      <span>rec <span class="clock" id="clock">00:00</span></span>
+    </div>
+  </header>
+
+  <main class="hero">
+    <div class="stage">
+      <svg class="logo-a" id="wm" viewBox="0 50 1143 1100" preserveAspectRatio="xMidYMid meet" aria-label="Athlay">
+        <!-- accent glow underneath -->
+        <path class="route-glow" id="routeGlow" d="" />
+        <!-- main outline -->
+        <path class="route" id="route" d="" />
+        <!-- start marker (same dot as pacer) -->
+        <g id="startMarker">
+          <circle class="pacer" r="26" />
+          <circle class="pacer-core" r="9" />
+        </g>
+        <!-- pacer dot -->
+        <g id="pacer" style="opacity:0">
+          <circle class="pacer" r="26" />
+          <circle class="pacer-core" r="9" />
+        </g>
+      </svg>
+
+      <section class="stats" aria-label="Workout stats">
+        <div class="stat">
+          <div class="v"><span id="s-time">00:00</span></div>
+          <div class="l">Time</div>
+        </div>
+        <div class="stat">
+          <div class="v"><span id="s-dist">0.00</span><span class="u" id="s-dist-u"> km</span></div>
+          <div class="l">Distance</div>
+        </div>
+        <div class="stat">
+          <div class="v"><span id="s-pace">—:—</span><span class="u" id="s-pace-u"> /km</span></div>
+          <div class="l" id="s-pace-l">Pace</div>
+        </div>
+        <div class="stat">
+          <div class="v"><span id="s-elev">0</span><span class="u" id="s-elev-u"> m</span></div>
+          <div class="l" id="s-elev-l">Elevation</div>
+        </div>
+      </section>
+
+      <div class="tagline">
+        <h2 class="rotator" aria-live="polite">
+          <span class="phrase active">Make your stats scroll-stopping <em>with Athlay</em></span>
+          <span class="phrase">Turn your daily miles into social highlights <em>with Athlay</em></span>
+          <span class="phrase">Craft beautiful stories out of your sweat <em>with Athlay</em></span>
+          <span class="phrase">Flex your stats beautifully <em>with Athlay</em></span>
+        </h2>
+        <p>Coming soon to iOS<span class="dot-sep">·</span>2026</p>
+      </div>
+
+      <nav class="modes" aria-label="Workout mode">
+        <button class="mode active" data-mode="run">Run</button>
+        <button class="mode" data-mode="ride">Ride</button>
+        <button class="mode" data-mode="swim">Swim</button>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="legal">
+    © 2026 Maksym Slobodianyk · Uralská 689/7, Bubeneč, 160 00 Prague, Czech Republic · IČO 24055557
+  </footer>
+
+<script>
+(() => {
+  // ───── route path: the Athlay logo "A" as a SINGLE continuous route ─────
+  // viewBox 600×640. One unbroken line — like a real runner who can't lift
+  // their feet. Goes up left leg, down right leg to crossbar, out-and-back
+  // across the crossbar, then continues down to a small hook on the right.
+  const ROUTE_D = "M850.67,959.83 C847.92,956.78 844.40,954.13 842.51,950.62 C824.64,917.36 806.87,884.04 789.42,850.56 C781.14,834.68 771.98,819.66 758.50,807.47 C738.86,789.73 715.85,779.42 689.64,779.22 C608.31,778.61 526.98,779.01 445.65,778.99 C431.79,778.98 418.67,782.51 406.17,787.97 C381.22,798.87 363.35,817.24 351.15,841.45 C343.37,856.89 335.20,872.14 327.24,887.50 C316.90,907.43 306.37,927.27 296.36,947.37 C290.02,960.08 280.33,966.93 266.11,966.98 C242.95,967.06 219.78,967.04 196.62,966.95 C193.66,966.94 190.64,966.54 187.75,965.88 C163.24,960.21 149.62,931.29 162.05,908.77 C170.89,892.76 179.12,876.41 187.46,860.13 C194.51,846.37 201.17,832.40 208.30,818.69 C220.51,795.22 233.02,771.92 245.27,748.48 C257.90,724.31 270.33,700.04 282.92,675.85 C300.28,642.51 317.71,609.21 335.09,575.88 C349.71,547.87 364.25,519.81 378.95,491.83 C395.81,459.74 412.89,427.76 429.71,395.64 C444.23,367.93 458.50,340.09 472.91,312.32 C485.70,287.66 498.43,262.95 511.46,238.42 C514.09,233.48 517.39,228.63 521.37,224.74 C537.26,209.17 555.82,201.80 578.44,206.89 C595.99,210.84 609.96,220.18 618.49,235.60 C633.68,263.10 647.58,291.30 662.04,319.20 C675.51,345.18 689.01,371.15 702.49,397.13 C720.51,431.83 738.46,466.58 756.58,501.22 C766.61,520.38 777.01,539.34 787.11,558.45 C791.31,566.40 795.13,574.56 799.23,582.56 C801.16,586.32 799.77,587.82 795.98,587.98 C794.65,588.04 793.31,588.00 791.98,588.00 C734.31,588.00 676.65,587.97 618.98,588.04 C613.85,588.04 608.72,588.91 603.60,588.87 C595.31,588.80 587.02,588.08 578.73,588.04 C555.23,587.92 531.73,588.35 508.24,587.86 C494.69,587.58 482.11,590.45 470.64,597.22 C445.37,612.11 435.48,632.77 439.42,660.32 C442.43,681.41 464.76,701.83 485.92,703.81 C495.57,704.71 505.38,704.10 515.12,703.97 C535.56,703.72 556.00,703.07 576.45,703.04 C649.78,702.92 723.11,702.99 796.44,702.99 C797.77,702.99 799.13,702.86 800.43,703.05 C812.66,704.76 824.51,702.80 836.14,699.20 C852.10,694.25 866.02,685.83 878.60,674.81 C890.56,664.34 900.23,652.12 906.86,637.84 C915.59,619.04 920.01,599.30 917.08,578.29 C915.52,567.05 913.69,556.00 908.46,545.80 C895.40,520.35 882.38,494.89 869.26,469.47 C855.22,442.25 841.06,415.11 827.02,387.90 C814.35,363.36 801.69,338.81 789.15,314.20 C767.10,270.90 744.93,227.67 723.25,184.19 C712.26,162.16 697.05,143.71 678.07,128.42 C650.80,106.45 619.30,94.05 584.54,91.23 C562.41,89.44 540.02,90.29 518.44,96.33 C480.19,107.05 447.57,126.92 424.40,159.73 C414.57,173.64 406.88,189.12 398.93,204.26 C384.72,231.37 371.08,258.77 357.14,286.02 C342.42,314.76 327.61,343.45 312.86,372.18 C299.49,398.24 286.16,424.33 272.77,450.38 C255.19,484.57 237.53,518.72 220.00,552.93 C210.97,570.54 202.21,588.28 193.20,605.90 C176.32,638.96 159.35,671.97 142.41,705.00 C130.26,728.69 118.07,752.37 105.94,776.07 C90.46,806.28 74.36,836.20 59.78,866.85 C48.45,890.68 43.15,916.05 45.87,942.83 C47.82,962.07 52.42,980.51 60.95,997.76 C74.90,1025.96 95.77,1047.94 123.36,1063.10 C143.47,1074.14 164.71,1081.44 188.22,1081.10 C217.72,1080.66 247.22,1081.03 276.72,1080.95 C281.49,1080.93 286.31,1080.64 291.04,1079.99 C317.65,1076.33 340.62,1064.61 360.63,1047.13 C376.06,1033.65 387.86,1017.35 397.19,998.98 C413.62,966.66 431.01,934.81 447.61,902.57 C450.81,896.36 454.82,893.87 461.66,893.91 C532.76,894.38 603.86,894.66 674.96,894.99 C675.63,895.00 676.30,894.92 676.96,895.01 C682.00,895.68 686.19,897.75 688.66,902.44 C705.04,933.49 721.72,964.38 737.65,995.66 C748.82,1017.60 762.25,1037.61 781.93,1052.71 C804.38,1069.94 829.16,1081.23 858.23,1081.03 C887.40,1080.84 916.57,1081.00 945.73,1080.98 C947.72,1080.98 949.74,1080.93 951.70,1080.65 C970.18,1078.03 987.29,1071.70 1003.46,1062.39 C1023.47,1050.88 1039.82,1035.32 1052.55,1016.43 C1069.67,991.01 1078.23,962.76 1077.09,931.72 C1076.34,911.14 1072.25,891.45 1062.99,873.09 C1051.10,849.49 1038.61,826.19 1026.44,802.73 C1015.63,781.90 1005.15,760.90 994.04,740.23 C986.59,726.38 975.12,716.86 959.81,712.47 C946.02,708.51 932.46,708.72 919.32,715.24 C905.69,722.00 896.21,732.50 891.15,746.78 C886.50,759.89 886.17,773.35 892.13,785.98 C899.57,801.76 908.06,817.06 916.26,832.49 C931.55,861.28 947.16,889.90 962.12,918.86 C964.79,924.04 966.49,930.64 966.00,936.35 C964.34,955.71 949.92,967.99 930.44,968.00 C912.28,968.00 894.11,967.91 875.95,968.03 C866.82,968.09 858.52,965.87 850.67,959.83 z";
+
+  const routeEl     = document.getElementById("route");
+  const routeGlowEl = document.getElementById("routeGlow");
+  const pacerEl     = document.getElementById("pacer");
+  const startMarker = document.getElementById("startMarker");
+
+  [routeEl, routeGlowEl].forEach(el => el.setAttribute("d", ROUTE_D));
+
+  const totalLen = routeEl.getTotalLength();
+  [routeEl, routeGlowEl].forEach(el => {
+    el.style.strokeDasharray  = totalLen;
+    el.style.strokeDashoffset = totalLen;
+  });
+
+  // position the start marker at the start of the route
+  const startPt = routeEl.getPointAtLength(0);
+  startMarker.setAttribute("transform", `translate(${startPt.x}, ${startPt.y})`);
+
+  // ───── mode profiles ─────
+  const MODES = {
+    run: {
+      accent: "oklch(0.78 0.17 145)",
+      accentSoft: "oklch(0.78 0.17 145 / 0.18)",
+      duration: 6000,
+      stats: {
+        time: { kind: "time", end: 24 * 60 + 18 }, // 24:18
+        dist: { kind: "num", end: 5.42, dp: 2, unit: " km" },
+        pace: { kind: "pace", end: 4 * 60 + 28, label: "Pace", unit: " /km" },
+        elev: { kind: "num", end: 87, dp: 0, unit: " m", label: "Elevation" }
+      }
+    },
+    ride: {
+      accent: "oklch(0.78 0.17 55)",
+      accentSoft: "oklch(0.78 0.17 55 / 0.20)",
+      duration: 5200,
+      stats: {
+        time: { kind: "time", end: 58 * 60 + 42 },
+        dist: { kind: "num", end: 24.6, dp: 1, unit: " km" },
+        pace: { kind: "num", end: 25.1, dp: 1, label: "Speed", unit: " km/h" },
+        elev: { kind: "num", end: 312, dp: 0, unit: " m", label: "Climb" }
+      }
+    },
+    swim: {
+      accent: "oklch(0.78 0.15 235)",
+      accentSoft: "oklch(0.78 0.15 235 / 0.20)",
+      duration: 6800,
+      stats: {
+        time: { kind: "time", end: 32 * 60 + 10 },
+        dist: { kind: "num", end: 1.50, dp: 2, unit: " km" },
+        pace: { kind: "pace", end: 2 * 60 + 8, label: "Pace", unit: " /100m" },
+        elev: { kind: "num", end: 28, dp: 0, unit: " ", label: "Laps" }
+      }
+    },
+  };
+
+  // ───── formatters ─────
+  const fmtTime = s => {
+    s = Math.max(0, Math.floor(s));
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const ss = s % 60;
+    const pad = n => n.toString().padStart(2, "0");
+    return h ? `${h}:${pad(m)}:${pad(ss)}` : `${pad(m)}:${pad(ss)}`;
+  };
+  const fmtPace = s => {
+    s = Math.max(0, Math.floor(s));
+    const m = Math.floor(s / 60);
+    const ss = s % 60;
+    return `${m}:${ss.toString().padStart(2, "0")}`;
+  };
+
+  // ───── animation ─────
+  const els = {
+    time: document.getElementById("s-time"),
+    dist: document.getElementById("s-dist"),
+    distU: document.getElementById("s-dist-u"),
+    pace: document.getElementById("s-pace"),
+    paceU: document.getElementById("s-pace-u"),
+    paceL: document.getElementById("s-pace-l"),
+    elev: document.getElementById("s-elev"),
+    elevU: document.getElementById("s-elev-u"),
+    elevL: document.getElementById("s-elev-l"),
+    clock: document.getElementById("clock")
+  };
+
+  // easing: a touch of acceleration / settle (athletic feel)
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+  let currentMode = "run";
+  let animId = null;
+  let startTs = 0;
+  let phase = "drawing"; // "drawing" | "settled"
+
+  function applyModeColors(mode) {
+    const m = MODES[mode];
+    document.documentElement.style.setProperty("--accent", m.accent);
+    document.documentElement.style.setProperty("--accent-soft", m.accentSoft);
+  }
+
+  function updateStat(statKey, progress) {
+    const m = MODES[currentMode];
+    const cfg = m.stats[statKey];
+    const v = cfg.end * progress;
+
+    let valueStr;
+    if (cfg.kind === "time") valueStr = fmtTime(v);
+    else if (cfg.kind === "pace") {
+      valueStr = progress > 0.02 ? fmtPace(cfg.end) : "—:—";
+      // pace stays stable once warm; cute touch — show actual pace nearly immediately
+      if (progress > 0.08) {
+        const jitter = (Math.sin(progress * 40) * 2);
+        valueStr = fmtPace(cfg.end + jitter);
+      }
+    } else {
+      valueStr = v.toFixed(cfg.dp);
+    }
+    return valueStr;
+  }
+
+  function setStatLabels() {
+    const m = MODES[currentMode];
+    els.paceL.textContent = m.stats.pace.label;
+    els.paceU.textContent = m.stats.pace.unit;
+    els.elevL.textContent = m.stats.elev.label;
+    els.elevU.textContent = m.stats.elev.unit;
+    els.distU.textContent = m.stats.dist.unit;
+  }
+
+  function tick(ts) {
+    if (!startTs) startTs = ts;
+    const dur = MODES[currentMode].duration;
+    const elapsed = ts - startTs;
+
+    if (phase === "drawing") {
+      let t = Math.min(1, elapsed / dur);
+      let eased = easeOutCubic(t);
+
+      // draw route (both layers in sync)
+      const off = totalLen * (1 - eased);
+      routeEl.style.strokeDashoffset = off;
+      routeGlowEl.style.strokeDashoffset = off;
+
+      // pacer dot
+      if (eased > 0 && eased < 1) {
+        const pt = routeEl.getPointAtLength(Math.min(totalLen * eased, totalLen - 0.01));
+        pacerEl.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
+        pacerEl.style.opacity = "1";
+      } else if (eased >= 1) {
+        pacerEl.style.opacity = "0";
+      }
+
+      // stats
+      els.time.textContent = updateStat("time", eased);
+      els.dist.textContent = updateStat("dist", eased);
+      els.pace.textContent = updateStat("pace", eased);
+      els.elev.textContent = updateStat("elev", eased);
+      els.clock.textContent = updateStat("time", eased);
+
+      if (t >= 1) {
+        phase = "settled";
+        startTs = ts;
+        // finalize values
+        const m = MODES[currentMode];
+        els.time.textContent = fmtTime(m.stats.time.end);
+        els.dist.textContent = m.stats.dist.end.toFixed(m.stats.dist.dp);
+        els.pace.textContent = m.stats.pace.kind === "pace"
+          ? fmtPace(m.stats.pace.end)
+          : m.stats.pace.end.toFixed(m.stats.pace.dp);
+        els.elev.textContent = m.stats.elev.end.toFixed(m.stats.elev.dp);
+        els.clock.textContent = fmtTime(m.stats.time.end);
+      }
+    } else if (phase === "settled") {
+      // hold for 2.6s, then restart
+      if (elapsed > 2600) {
+        restart();
+      }
+    }
+    animId = requestAnimationFrame(tick);
+  }
+
+  function restart() {
+    phase = "drawing";
+    startTs = 0;
+    [routeEl, routeGlowEl].forEach(el => {
+      el.style.strokeDashoffset = totalLen;
+    });
+    pacerEl.style.opacity = "0";
+  }
+
+  function switchMode(mode) {
+    if (mode === currentMode) return;
+    currentMode = mode;
+    applyModeColors(mode);
+    setStatLabels();
+    document.querySelectorAll(".mode").forEach(b => {
+      b.classList.toggle("active", b.dataset.mode === mode);
+    });
+    restart();
+  }
+
+  // wire mode buttons
+  document.querySelectorAll(".mode").forEach(btn => {
+    btn.addEventListener("click", () => switchMode(btn.dataset.mode));
+  });
+
+  // ───── tagline rotator ─────
+  const phrases = document.querySelectorAll(".rotator .phrase");
+  if (phrases.length > 1) {
+    let phraseIdx = 0;
+    setInterval(() => {
+      phrases[phraseIdx].classList.remove("active");
+      phraseIdx = (phraseIdx + 1) % phrases.length;
+      phrases[phraseIdx].classList.add("active");
+    }, 4200);
+  }
+
+  // start
+  applyModeColors(currentMode);
+  setStatLabels();
+  animId = requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
