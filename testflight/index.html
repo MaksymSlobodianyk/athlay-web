@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Installing Athlay with TestFlight &mdash; Athlay</title>
+<meta name="description" content="How to install the Athlay beta on your iPhone using TestFlight, Apple&rsquo;s official app for testing apps before they reach the App Store." />
+<link rel="canonical" href="https://athlay.app/testflight" />
+<meta name="robots" content="noindex, follow" />
+<meta name="author" content="Maksym Slobodianyk" />
+<meta name="application-name" content="Athlay" />
+<meta name="theme-color" content="#ffffff" />
+<meta name="color-scheme" content="light" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Athlay" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Athlay" />
+<meta property="og:title" content="Installing Athlay with TestFlight" />
+<meta property="og:description" content="How to install the Athlay beta on your iPhone using TestFlight, Apple&rsquo;s official app for testing apps before they reach the App Store." />
+<meta property="og:url" content="https://athlay.app/testflight" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="https://athlay.app/assets/athlay-logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1024" />
+<meta property="og:image:height" content="1024" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/athlay-logo.png" />
+<link rel="preload" as="image" href="../assets/testflight/01-invite-email.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+
+  :root{--ink:#0f0f0f;--ink-2:#6e6e76;--ink-3:#a1a1aa;--line:#ececef;--line-2:#f0f0f3;--paper:#fff;--paper-2:#f4f4f6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Space Grotesk",system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden}
+  a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c9c9d0}
+  a:hover{text-decoration-color:var(--ink)}
+  ::selection{background:var(--ink);color:#fff}
+  .grid-bg{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 .5H60M.5 0V60' stroke='%23E7E7EB' stroke-dasharray='1 5'/%3E%3Cpath d='M24 30H36M30 24V36' stroke='%23DCDCE2' stroke-width='1.2'/%3E%3C/svg%3E");-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 38%,#000 25%,transparent 82%);mask-image:radial-gradient(ellipse 90% 70% at 50% 38%,#000 25%,transparent 82%);pointer-events:none;z-index:0}
+  .topbar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(14px,3vw,22px) clamp(16px,4vw,40px)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .mark{display:block;width:21px;height:19px;flex:none}
+  .mark path{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .brand span{font-size:18px;font-weight:600;letter-spacing:-.02em}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .tag{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8b8b93;white-space:nowrap;text-decoration:none}
+  a.tag:hover{color:var(--ink)}
+  .legal{position:relative;z-index:1;padding:20px clamp(16px,4vw,40px) 28px;text-align:center;font-size:11.5px;line-height:1.7;color:var(--ink-3);border-top:1px solid var(--line-2)}
+  .legal a{color:var(--ink-2)}
+  .legal .sep{margin:0 8px;color:#d4d4da}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  .content{position:relative;z-index:1;flex:1;width:100%;max-width:760px;margin:0 auto;padding:clamp(24px,5vw,56px) clamp(16px,4vw,32px) clamp(48px,7vw,80px)}
+  .prose{--ink-2:#4a4a52}
+  .prose .eyebrow{display:block;margin-bottom:14px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#8b8b93}
+  .prose h1{font-size:clamp(30px,6.5vw,46px);font-weight:700;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
+  .prose .lede{margin-top:16px;font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:var(--ink-2);max-width:46ch;text-wrap:pretty}
+  .prose h2{margin:44px 0 14px;padding-top:36px;border-top:1px solid var(--line);font-size:clamp(21px,3.2vw,26px);font-weight:700;letter-spacing:-.02em}
+  .notice + h2{margin-top:52px;padding-top:0;border-top:none}
+  .prose h3{margin:0 0 10px;font-size:18px;font-weight:600;letter-spacing:-.01em}
+  .prose p,.prose li{font-size:17.5px;line-height:1.72;color:var(--ink-2);text-wrap:pretty}
+  .prose p{margin-bottom:14px}
+  .prose ul{margin:0 0 18px;padding-left:20px}
+  .prose li{margin-bottom:7px}
+  .prose strong{color:var(--ink);font-weight:600}
+  .prose a{color:#4D49FC;text-decoration-color:rgba(77,73,252,.4)}
+  .prose a:hover{text-decoration-color:#4D49FC}
+
+  .notice{display:flex;align-items:flex-start;gap:14px;margin:32px 0 0;padding:20px 22px;background:var(--ink);border:1px solid var(--ink);border-radius:16px}
+  .notice i{display:grid;place-items:center;width:26px;height:26px;flex:none;margin-top:1px;border-radius:8px;background:#fff;color:var(--ink);font-style:normal;font-size:14px;font-weight:700}
+  .notice p{margin:0;font-size:16.5px;line-height:1.55;color:#fff}
+  .notice strong{color:#fff;font-weight:600}
+  .notice ::selection{background:#fff;color:var(--ink)}
+
+  .steps{margin:0;padding:0;list-style:none;counter-reset:step}
+  .steps > li{counter-increment:step;display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(20px,3.4vw,28px);margin-bottom:40px}
+  .steps > li:last-child{margin-bottom:0}
+  .steps > li:nth-child(even){flex-direction:row-reverse}
+  .steps .body{flex:1 1 260px;min-width:0}
+  .steps .body::before{content:"Step " counter(step,decimal-leading-zero);display:block;margin-bottom:8px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8b8b93}
+  .steps .body p:last-child{margin-bottom:0}
+  .shot{flex:0 0 252px;width:252px;max-width:100%;margin:0;padding:7px;border-radius:22px;background:#fff;box-shadow:0 1px 2px rgba(15,15,15,.06),0 26px 60px -26px rgba(15,15,15,.4)}
+  .shot img{display:block;width:100%;height:auto;border-radius:15px;background:var(--paper-2)}
+  @media (max-width:620px){.steps > li,.steps > li:nth-child(even){flex-direction:column;gap:16px;margin-bottom:52px}.steps .body{flex:none}.shot{flex:none;width:min(244px,74%);align-self:center}}
+</style>
+</head>
+<body>
+<div class="grid-bg" aria-hidden="true"></div>
+<header class="topbar">
+  <a class="brand" href="../" aria-label="Athlay home">
+    <svg class="mark" viewBox="6 8 28 24" aria-hidden="true"><path id="route" d="M29.2027 23.5721L31.7938 27.8325C32.3797 28.7958 31.6473 30 30.4755 30H27.21C26.6662 30 26.1636 29.7246 25.8917 29.2775L24.1195 26.3637C23.8476 25.9166 23.3451 25.6412 22.8012 25.6412H17.2116C16.6678 25.6412 16.1652 25.9166 15.8933 26.3637L14.1211 29.2775C13.8492 29.7246 13.3467 30 12.8028 30H9.52452C8.35269 30 7.6203 28.7958 8.20621 27.8325L18.6125 10.7225C19.1984 9.75916 20.6632 9.75916 21.2491 10.7225L26.293 19.0155C26.8789 19.9789 26.1465 21.1831 24.9746 21.1831H19.841C19.2971 21.1831 18.7946 21.4585 18.5227 21.9056L16.3328 25.5062"></path></svg>
+    <span>Athlay</span>
+  </a>
+  <a class="tag" href="../">&larr; Home</a>
+</header>
+
+<main class="content"><article class="prose">
+
+  <span class="eyebrow">Beta &middot; TestFlight</span>
+  <h1>Installing Athlay</h1>
+  <p class="lede">Athlay isn&rsquo;t on the App Store yet. Until it is, you get it through TestFlight. It takes about two minutes.</p>
+
+  <div class="notice">
+    <i aria-hidden="true">&#10003;</i>
+    <p>TestFlight is made by Apple. It is the normal, official way to try an iPhone app before it reaches the App Store, and you download it from the App Store like any other app.</p>
+  </div>
+
+  <h2>What TestFlight is</h2>
+  <p>If you haven&rsquo;t used it before, the invite can look odd. So, plainly: <strong>TestFlight is Apple&rsquo;s own app.</strong> Apple built it, Apple runs it, and it&rsquo;s what nearly every iPhone app you already use went through before it launched.</p>
+  <p>A few things worth knowing:</p>
+  <ul>
+    <li>You install TestFlight from the App Store, the same as any other app. Nothing is sideloaded and nothing is jailbroken.</li>
+    <li>Apple reviews the app builds that go out through TestFlight.</li>
+    <li>You sign in with the Apple ID you already have. There is no new account and no password to create for us.</li>
+    <li>The invite email is sent by Apple, not by us. The sender address ends in <strong>@email.apple.com</strong>.</li>
+    <li>It&rsquo;s free. TestFlight costs nothing and the Athlay beta costs nothing.</li>
+  </ul>
+  <p>You can read Apple&rsquo;s own description on <a href="https://developer.apple.com/testflight/" rel="noopener">the TestFlight page</a>, and see the app itself <a href="https://apps.apple.com/app/testflight/id899247664" rel="noopener">on the App Store</a>.</p>
+
+  <h2>Before you start</h2>
+  <ul>
+    <li><strong>An iPhone running iOS 26 or later.</strong> Athlay is iPhone-only for now. It won&rsquo;t install on an iPad.</li>
+    <li><strong>The invite email from TestFlight.</strong> We send it to the address you gave us. If it&rsquo;s not in your inbox, check spam and promotions.</li>
+  </ul>
+  <p>Not sure which version you&rsquo;re on? Open Settings &rarr; General &rarr; About and look at Software Version. Anything below 26, update from Settings &rarr; General &rarr; Software Update.</p>
+
+  <h2>Step by step</h2>
+
+  <ol class="steps">
+
+    <li>
+      <div class="body">
+        <h3>Open the invite email</h3>
+        <p>On your iPhone, open the email titled &ldquo;Maksym Slobodianyk has invited you to test Athlay.&rdquo; It comes from TestFlight.</p>
+      </div>
+      <figure class="shot"><img src="../assets/testflight/01-invite-email.png" alt="TestFlight invite email on an iPhone, reading: Maksym Slobodianyk has invited you to test Athlay, with a View in TestFlight button." loading="eager" decoding="async" draggable="false" /></figure>
+    </li>
+
+    <li>
+      <div class="body">
+        <h3>Get TestFlight from the App Store</h3>
+        <p>If TestFlight isn&rsquo;t on your phone yet, install it first. On your iPhone, open <a href="https://apps.apple.com/app/testflight/id899247664" rel="noopener">TestFlight on the App Store</a> and tap Get &mdash; or search the App Store for <strong>TestFlight</strong>. It&rsquo;s the blue icon with the white propeller, published by Apple.</p>
+        <p>Already have it? Skip to the next step.</p>
+      </div>
+      <figure class="shot"><img src="../assets/testflight/02-testflight-appstore.png" alt="The TestFlight app listing on the App Store, published by Apple." loading="lazy" decoding="async" draggable="false" /></figure>
+    </li>
+
+    <li>
+      <div class="body">
+        <h3>Install Athlay</h3>
+        <p>Back in the email, tap the blue <strong>View in TestFlight</strong> button. TestFlight opens on Athlay&rsquo;s page. Tap <strong>Install</strong>.</p>
+        <p>You&rsquo;ll see the version number, the build number and how many days are left before that build expires.</p>
+      </div>
+      <figure class="shot"><img src="../assets/testflight/03-athlay-install.jpg" alt="Athlay's page inside TestFlight, showing the version number and an Install button." loading="lazy" decoding="async" draggable="false" /></figure>
+    </li>
+
+    <li>
+      <div class="body">
+        <h3>Open it</h3>
+        <p>Athlay is now on your Home Screen, like any other app. Tap it to open &mdash; from there or from TestFlight, it makes no difference.</p>
+      </div>
+      <figure class="shot"><img src="../assets/testflight/04-home-screen.jpg" alt="The Athlay app icon on an iPhone Home Screen after installing." loading="lazy" decoding="async" draggable="false" /></figure>
+    </li>
+
+    <li>
+      <div class="body">
+        <h3>Check out what&rsquo;s new in this version</h3>
+        <p>The first time you open a new build, you&rsquo;ll see a screen headed <strong>From the Developer</strong>, listing what changed since the last one. It comes from TestFlight, not from inside Athlay.</p>
+        <p>Read it if you like, tap <strong>Continue</strong>, and you&rsquo;re in the app. You&rsquo;ll see this again each time you update to a newer build.</p>
+      </div>
+      <figure class="shot"><img src="../assets/testflight/05-what-to-test.png" alt="TestFlight's From the Developer screen for Athlay, listing what to test in this build, with a Continue button." loading="lazy" decoding="async" draggable="false" /></figure>
+    </li>
+
+  </ol>
+
+  <h2>Telling us what&rsquo;s broken</h2>
+  <p>This is a beta, so things will be rough in places. That&rsquo;s the point &mdash; we&rsquo;d rather hear about it than not.</p>
+  <p>The quickest way: take a screenshot inside Athlay, then tap the preview in the corner and choose <strong>Share Beta Feedback</strong>. Your note and the screenshot come straight to us.</p>
+  <p>You can also open Athlay&rsquo;s page in TestFlight and tap <strong>Send Feedback</strong>, or just email <a href="mailto:support@athlay.app">support@athlay.app</a>. Whatever&rsquo;s easiest.</p>
+
+  <h2>Good to know</h2>
+  <ul>
+    <li><strong>You can leave whenever.</strong> Delete the app the way you&rsquo;d delete any other, or tap Stop Testing in TestFlight.</li>
+    <li><strong>When Athlay launches properly</strong>, you install the App Store version and delete the beta.</li>
+  </ul>
+
+
+</article></main>
+
+<footer class="legal">
+  &copy; 2026 Maksym Slobodianyk &middot; Uralsk&aacute; 689/7, Bubene&#269;, 160 00 Prague, Czech Republic &middot; I&#268;O 24055557<br />
+  <a href="../privacy/">Privacy Policy</a><span class="sep">&middot;</span><a href="../support/">Support</a>
+</footer>
+
+<script>
+(function(){
+  var path=document.getElementById("route");if(!path)return;
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var len=path.getTotalLength(),dur=reduce?1:2200;
+  path.style.transition="none";path.style.strokeDasharray=len;path.style.strokeDashoffset=len;
+  path.getBoundingClientRect();
+  path.style.transition="stroke-dashoffset "+dur+"ms cubic-bezier(.25,.6,.3,1)";
+  path.style.strokeDashoffset="0";
+})();
+</script>
+</body>
+</html>
