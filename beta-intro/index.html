@@ -73,7 +73,11 @@
   .me .portrait{flex:0 0 132px;width:132px;aspect-ratio:1;margin:0;border-radius:20px;overflow:hidden;background:var(--paper-2);box-shadow:0 1px 2px rgba(15,15,15,.06),0 18px 40px -22px rgba(15,15,15,.4)}
   .me .portrait img{display:block;width:100%;height:100%;object-fit:cover}
   .me .words{flex:1 1 300px;min-width:0}
-  .me .words p:last-child{margin-bottom:0}
+  .me .words p:last-of-type{margin-bottom:0}
+  .me .ig{display:inline-flex;align-items:center;gap:9px;margin-top:16px;padding:10px 16px 10px 13px;border:1px solid #e2e2e8;border-radius:99px;text-decoration:none;color:var(--ink);transition:border-color .18s,background .18s}
+  .me .ig:hover{border-color:var(--ink);background:var(--paper-2);text-decoration:none}
+  .me .ig svg{width:17px;height:17px;flex:none}
+  .me .ig b{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500}
   @media (max-width:560px){.me .portrait{flex:0 0 104px;width:104px}}
 
   /* FAQ accordion */
@@ -116,6 +120,10 @@
     <figure class="portrait"><img src="../assets/beta/portrait.jpg" alt="Maksym in sunglasses, grinning and pointing at his name on a race finisher wall." loading="eager" decoding="async" draggable="false" /></figure>
     <div class="words">
       <p><strong>Hey, I&rsquo;m Maksym.</strong> A software engineer living in Prague, an amateur athlete, and more than a bit passionate about running. Luck isn&rsquo;t my strong suit. I haven&rsquo;t won a single race entry ballot, so this year I&rsquo;ll likely have no races at all &#129394;</p>
+      <a class="ig" href="https://www.instagram.com/running_maslo" target="_blank" rel="noopener noreferrer" aria-label="Follow @running_maslo on Instagram">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5" stroke="currentColor" stroke-width="1.8" /><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" /><circle cx="17.2" cy="6.8" r="1.25" fill="currentColor" /></svg>
+        <b>@running_maslo</b>
+      </a>
     </div>
   </section>
 
@@ -157,6 +165,7 @@
           <li>Figure out whether it actually helps you create content for your socials.</li>
           <li>I&rsquo;d love to hear when something feels off, or could be done better.</li>
           <li>Same goes for any functionality you expected and didn&rsquo;t find.</li>
+          <li>Along the way I might send you a short questionnaire, one or two over the whole beta. A few minutes each, and answering is entirely up to you.</li>
         </ul>
         <p>Thank you.</p>
       </div>
