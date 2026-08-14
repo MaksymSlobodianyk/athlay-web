@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Become an Athlay beta tester &middot; Athlay</title>
+<meta name="description" content="Who&rsquo;s behind Athlay, why it&rsquo;s being built, and what testing the beta actually involves." />
+<link rel="canonical" href="https://athlay.app/beta-intro" />
+<meta name="robots" content="noindex, follow" />
+<meta name="author" content="Maksym Slobodianyk" />
+<meta name="application-name" content="Athlay" />
+<meta name="theme-color" content="#ffffff" />
+<meta name="color-scheme" content="light" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Athlay" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Athlay" />
+<meta property="og:title" content="Become an Athlay beta tester" />
+<meta property="og:description" content="Who&rsquo;s behind Athlay, why it&rsquo;s being built, and what testing the beta actually involves." />
+<meta property="og:url" content="https://athlay.app/beta-intro" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="https://athlay.app/assets/athlay-logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1024" />
+<meta property="og:image:height" content="1024" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/athlay-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+
+  :root{--ink:#0f0f0f;--ink-2:#6e6e76;--ink-3:#a1a1aa;--line:#ececef;--line-2:#f0f0f3;--paper:#fff;--paper-2:#f4f4f6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Space Grotesk",system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden}
+  a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c9c9d0}
+  a:hover{text-decoration-color:var(--ink)}
+  ::selection{background:var(--ink);color:#fff}
+  .grid-bg{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 .5H60M.5 0V60' stroke='%23E7E7EB' stroke-dasharray='1 5'/%3E%3Cpath d='M24 30H36M30 24V36' stroke='%23DCDCE2' stroke-width='1.2'/%3E%3C/svg%3E");-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 38%,#000 25%,transparent 82%);mask-image:radial-gradient(ellipse 90% 70% at 50% 38%,#000 25%,transparent 82%);pointer-events:none;z-index:0}
+  .topbar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(14px,3vw,22px) clamp(16px,4vw,40px)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .mark{display:block;width:21px;height:19px;flex:none}
+  .mark path{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .brand span{font-size:18px;font-weight:600;letter-spacing:-.02em}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .tag{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8b8b93;white-space:nowrap;text-decoration:none}
+  a.tag:hover{color:var(--ink)}
+  .legal{position:relative;z-index:1;padding:20px clamp(16px,4vw,40px) 28px;text-align:center;font-size:11.5px;line-height:1.7;color:var(--ink-3);border-top:1px solid var(--line-2)}
+  .legal a{color:var(--ink-2)}
+  .legal .sep{margin:0 8px;color:#d4d4da}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  .content{position:relative;z-index:1;flex:1;width:100%;max-width:760px;margin:0 auto;padding:clamp(24px,5vw,56px) clamp(16px,4vw,32px) clamp(48px,7vw,80px)}
+  .prose{--ink-2:#4a4a52}
+  .prose .eyebrow{display:block;margin-bottom:14px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#8b8b93}
+  .prose h1{font-size:clamp(30px,6.5vw,46px);font-weight:700;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
+  .prose .lede{margin-top:16px;font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:var(--ink-2);max-width:46ch;text-wrap:pretty}
+  .prose h2{margin:44px 0 14px;padding-top:36px;border-top:1px solid var(--line);font-size:clamp(21px,3.2vw,26px);font-weight:700;letter-spacing:-.02em}
+  .prose p,.prose li{font-size:17.5px;line-height:1.72;color:var(--ink-2);text-wrap:pretty}
+  .prose p{margin-bottom:14px}
+  .prose ul{margin:0 0 18px;padding-left:20px}
+  .prose li{margin-bottom:7px}
+  .prose strong{color:var(--ink);font-weight:600}
+  .prose a{color:#4D49FC;text-decoration-color:rgba(77,73,252,.4)}
+  .prose a:hover{text-decoration-color:#4D49FC}
+
+  /* Intro card: who I am */
+  .me{display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(18px,3vw,26px);margin-top:32px;padding-top:32px;border-top:1px solid var(--line)}
+  .me .portrait{flex:0 0 132px;width:132px;aspect-ratio:1;margin:0;border-radius:20px;overflow:hidden;background:var(--paper-2);box-shadow:0 1px 2px rgba(15,15,15,.06),0 18px 40px -22px rgba(15,15,15,.4)}
+  .me .portrait img{display:block;width:100%;height:100%;object-fit:cover}
+  .me .words{flex:1 1 300px;min-width:0}
+  .me .words p:last-child{margin-bottom:0}
+  @media (max-width:560px){.me .portrait{flex:0 0 104px;width:104px}}
+
+  /* FAQ accordion */
+  .faq{margin-top:8px}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{display:flex;align-items:flex-start;gap:16px;padding:20px 2px;list-style:none;cursor:pointer;font-size:clamp(17px,2.4vw,19px);font-weight:600;letter-spacing:-.01em;color:var(--ink);text-wrap:pretty}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"";flex:none;width:13px;height:13px;margin-top:7px;margin-left:auto;background:currentColor;color:#a1a1aa;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13'%3E%3Cpath d='M6.5 0v13M0 6.5h13' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13'%3E%3Cpath d='M6.5 0v13M0 6.5h13' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .25s cubic-bezier(.22,.7,.25,1),color .18s}
+  .faq summary:hover::after{color:var(--ink)}
+  .faq details[open] summary::after{transform:rotate(135deg)}
+  .faq summary:focus-visible{outline:2px solid #4D49FC;outline-offset:3px;border-radius:6px}
+  .faq .answer{padding:0 40px 22px 2px}
+  .faq .answer > :last-child{margin-bottom:0}
+
+  /* Call to action */
+  .cta{margin-top:clamp(40px,6vw,56px);padding:clamp(24px,4vw,34px);background:var(--ink);border-radius:20px;text-align:center}
+  .cta h2{margin:0;padding:0;border:none;font-size:clamp(21px,3.2vw,26px);font-weight:700;letter-spacing:-.02em;color:#fff}
+  .cta p{margin:12px auto 0;max-width:44ch;font-size:16.5px;line-height:1.6;color:#c7c7cf}
+  .cta ::selection{background:#fff;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="grid-bg" aria-hidden="true"></div>
+<header class="topbar">
+  <a class="brand" href="../" aria-label="Athlay home">
+    <svg class="mark" viewBox="6 8 28 24" aria-hidden="true"><path id="route" d="M29.2027 23.5721L31.7938 27.8325C32.3797 28.7958 31.6473 30 30.4755 30H27.21C26.6662 30 26.1636 29.7246 25.8917 29.2775L24.1195 26.3637C23.8476 25.9166 23.3451 25.6412 22.8012 25.6412H17.2116C16.6678 25.6412 16.1652 25.9166 15.8933 26.3637L14.1211 29.2775C13.8492 29.7246 13.3467 30 12.8028 30H9.52452C8.35269 30 7.6203 28.7958 8.20621 27.8325L18.6125 10.7225C19.1984 9.75916 20.6632 9.75916 21.2491 10.7225L26.293 19.0155C26.8789 19.9789 26.1465 21.1831 24.9746 21.1831H19.841C19.2971 21.1831 18.7946 21.4585 18.5227 21.9056L16.3328 25.5062"></path></svg>
+    <span>Athlay</span>
+  </a>
+  <a class="tag" href="../">&larr; Home</a>
+</header>
+
+<main class="content"><article class="prose">
+
+  <span class="eyebrow">Beta &middot; Invitation</span>
+  <h1>So, what am I signing up for?</h1>
+  <p class="lede">TLDR: Athlay is in beta, and I&rsquo;m looking for a few athletes to use it on their own endurance activities and tell me what feels off or what is missing before it reaches the App Store. Everything you&rsquo;d probably want to know before saying YES is below.</p>
+
+  <!-- ===== Who I am ===================================================== -->
+  <section class="me">
+    <figure class="portrait"><img src="../assets/beta/portrait.jpg" alt="Maksym in sunglasses, grinning and pointing at his name on a race finisher wall." loading="eager" decoding="async" draggable="false" /></figure>
+    <div class="words">
+      <p><strong>Hey, I&rsquo;m Maksym.</strong> A software engineer living in Prague, an amateur athlete, and more than a bit passionate about running. Luck isn&rsquo;t my strong suit. I haven&rsquo;t won a single race entry ballot, so this year I&rsquo;ll likely have no races at all &#129394;</p>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ========================================================== -->
+  <h2>Questions you probably have</h2>
+
+  <div class="faq">
+
+    <details open>
+      <summary>What is Athlay?</summary>
+      <div class="answer">
+        <p><strong>Athlete&rsquo;s Overlay</strong>, or Athlay for short, is an app that fetches the details of your workout and lets you turn them into scroll-stopping overlays for your socials.</p>
+        <p>It offers the widest selection of metrics to visualize on the market, so you can share the ones that mattered most for a specific workout.</p>
+        <p>You can also combine several metrics into a custom sticker and reuse it across many pieces of content, so your posts stand out in the feed and have a recognizable look.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why are you building Athlay?</summary>
+      <div class="answer">
+        <p>At some point I wanted to start sharing my runs with the world, and I couldn&rsquo;t find a tool flexible enough to do it the way I had in mind. So I decided to build one myself.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why are you looking for beta users?</summary>
+      <div class="answer">
+        <p>Although I run myself and have a clear idea of how this app should look for running, that is still one person&rsquo;s view. I would rather gather opinions from other runners before it goes out into the wild.</p>
+        <p>Athlay also targets the three sports of triathlon, and two of them are not mine. Riding and swimming are where I lack experience, and I have a feeling I might get their important aspects wrong, so I want to hear from people to whom those sports are native.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What do you expect from me?</summary>
+      <div class="answer">
+        <p><strong>Disclaimer: you are not a bug hunter.</strong> I value your time, and my goal is that you run into no bugs at all. If some do find you anyway, I&rsquo;ll be glad to hear about them.</p>
+        <ul>
+          <li>Just use it normally, the way you would if you had come across it yourself.</li>
+          <li>Figure out whether it actually helps you create content for your socials.</li>
+          <li>I&rsquo;d love to hear when something feels off, or could be done better.</li>
+          <li>Same goes for any functionality you expected and didn&rsquo;t find.</li>
+        </ul>
+        <p>Thank you.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I install it?</summary>
+      <div class="answer">
+        <p>Through TestFlight, Apple&rsquo;s official app for testing apps before they hit the App Store. I&rsquo;ll send an invite to your email and you&rsquo;re in within two minutes. There&rsquo;s <a href="../testflight/">a step-by-step walkthrough here</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What do I need to become a beta user?</summary>
+      <div class="answer">
+        <ul>
+          <li><strong>An iPhone running iOS 26 or later.</strong> Athlay is iPhone-only for now, so it won&rsquo;t install on an iPad.</li>
+          <li><strong>A Strava account.</strong> Athlay fetches your activities from Strava, so for the moment that is the only way your workouts get into the app.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>What happens to my data?</summary>
+      <div class="answer">
+        <p>Your workout data lives on your phone. Athlay pulls it from Strava and renders the overlay on the device, so it is never stored or processed on Athlay&rsquo;s servers.</p>
+        <p>What I do keep is the basics of your account, such as your email address, plus anonymous usage analytics that carry no fitness or personal data. Everything is spelled out in the <a href="../privacy/">Privacy Policy</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where do my workouts come from?</summary>
+      <div class="answer">
+        <p>From Strava. You connect your account once, Athlay fetches your activities from there, and you pick the one you want to turn into an overlay. For the moment that is the only source.</p>
+        <p>Not a big fan of Strava? Understandable. I am working on integrating other providers, Garmin among them. Unfortunately Garmin closed API access requests until the end of the year while they revamp it.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I report something?</summary>
+      <div class="answer">
+        <p>Screenshot inside Athlay, tap the preview in the corner, choose <strong>Share Beta Feedback</strong>, and your note comes straight to me. You can also email <a href="mailto:support@athlay.app">support@athlay.app</a>, or simply DM me back with the issue &#128578;</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does the overlay have a watermark?</summary>
+      <div class="answer">
+        <p>A watermark is available as one of the overlays, but you are not obliged to use it. Having said that, I would be glad if you helped me spread the word about Athlay.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How will the beta run?</summary>
+      <div class="answer">
+        <p>During the beta period I am going to release additional features, both from my roadmap and based on your feedback. They will be grouped and scoped well, so you will not be spammed with new versions daily.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How long does this last, and can I stop?</summary>
+      <div class="answer">
+        <p>I plan to release Athlay in the upcoming months, so the beta testing will last from a couple of weeks to a month.</p>
+        <p>You can quit anytime, just let me know about that &#128578;</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I get my first free year as a beta user?</summary>
+      <div class="answer">
+        <p>At this point Athlay has no paywall, but one is coming. Once it is there, I will share a promo code with you.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- ===== CTA ========================================================== -->
+  <section class="cta">
+    <h2>Still up for it?</h2>
+    <p>Reply to my message with the email tied to your Apple ID, and I&rsquo;ll send the invite.</p>
+  </section>
+
+</article></main>
+
+<footer class="legal">
+  &copy; 2026 Maksym Slobodianyk &middot; Uralsk&aacute; 689/7, Bubene&#269;, 160 00 Prague, Czech Republic &middot; I&#268;O 24055557<br />
+  <a href="../privacy/">Privacy Policy</a><span class="sep">&middot;</span><a href="../support/">Support</a>
+</footer>
+
+<script>
+(function(){
+  var path=document.getElementById("route");if(!path)return;
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var len=path.getTotalLength(),dur=reduce?1:2200;
+  path.style.transition="none";path.style.strokeDasharray=len;path.style.strokeDashoffset=len;
+  path.getBoundingClientRect();
+  path.style.transition="stroke-dashoffset "+dur+"ms cubic-bezier(.25,.6,.3,1)";
+  path.style.strokeDashoffset="0";
+})();
+</script>
+</body>
+</html>
