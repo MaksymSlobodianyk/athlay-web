@@ -1,237 +1,745 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Athlay — Turn your workouts into shareable stickers</title>
-<meta name="description" content="Athlay lays your route, pace, distance and dozens of other metrics over your own photos, or exports them on a transparent background. Join the waitlist for the iOS launch." />
-<link rel="canonical" href="https://athlay.app/" />
-<meta name="robots" content="index, follow, max-image-preview:large" />
-<meta name="author" content="Maksym Slobodianyk" />
-<meta name="application-name" content="Athlay" />
-<meta name="theme-color" content="#ffffff" />
-<meta name="color-scheme" content="light" />
-<meta name="format-detection" content="telephone=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="Athlay" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Athlay" />
-<meta property="og:title" content="Athlay — Turn your workouts into shareable stickers" />
-<meta property="og:description" content="Athlay lays your route, pace, distance and dozens of other metrics over your own photos, or exports them on a transparent background. Join the waitlist for the iOS launch." />
-<meta property="og:url" content="https://athlay.app/" />
-<meta property="og:locale" content="en_US" />
-<meta property="og:image" content="https://athlay.app/assets/athlay-logo.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1024" />
-<meta property="og:image:height" content="1024" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="assets/athlay-logo.png" />
-<link rel="preload" as="image" href="assets/stickers/copenhagen-half.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Athlay — Turn your workouts into shareable stickers</title>
+    <meta
+      name="description"
+      content="Athlay lays your route, pace, distance and dozens of other metrics over your own photos, or exports them on a transparent background. Join the waitlist for the iOS launch."
+    />
+    <link rel="canonical" href="https://athlay.app/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Maksym Slobodianyk" />
+    <meta name="application-name" content="Athlay" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Athlay" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Athlay" />
+    <meta
+      property="og:title"
+      content="Athlay — Turn your workouts into shareable stickers"
+    />
+    <meta
+      property="og:description"
+      content="Athlay lays your route, pace, distance and dozens of other metrics over your own photos, or exports them on a transparent background. Join the waitlist for the iOS launch."
+    />
+    <meta property="og:url" content="https://athlay.app/" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:image"
+      content="https://athlay.app/assets/athlay-logo.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/athlay-logo.png"
+    />
+    <link rel="preload" as="image" href="assets/stickers/copenhagen-half.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0f0f0f;
+        --ink-2: #6e6e76;
+        --ink-3: #a1a1aa;
+        --line: #ececef;
+        --line-2: #f0f0f3;
+        --paper: #fff;
+        --paper-2: #f4f4f6;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family:
+          "Space Grotesk",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+      a {
+        color: var(--ink);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: #c9c9d0;
+      }
+      a:hover {
+        text-decoration-color: var(--ink);
+      }
+      ::selection {
+        background: var(--ink);
+        color: #fff;
+      }
+      .grid-bg {
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 .5H60M.5 0V60' stroke='%23E7E7EB' stroke-dasharray='1 5'/%3E%3Cpath d='M24 30H36M30 24V36' stroke='%23DCDCE2' stroke-width='1.2'/%3E%3C/svg%3E");
+        -webkit-mask-image: radial-gradient(
+          ellipse 90% 70% at 50% 38%,
+          #000 25%,
+          transparent 82%
+        );
+        mask-image: radial-gradient(
+          ellipse 90% 70% at 50% 38%,
+          #000 25%,
+          transparent 82%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: clamp(14px, 3vw, 22px) clamp(16px, 4vw, 40px);
+        background: rgba(255, 255, 255, 0.78);
+        -webkit-backdrop-filter: saturate(160%) blur(12px);
+        backdrop-filter: saturate(160%) blur(12px);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .topbar.stuck {
+        border-bottom-color: var(--line-2);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand span {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      .tag {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #8b8b93;
+        white-space: nowrap;
+        text-decoration: none;
+      }
+      a.tag:hover {
+        color: var(--ink);
+      }
+      .legal {
+        position: relative;
+        z-index: 1;
+        padding: 20px clamp(16px, 4vw, 40px) 28px;
+        text-align: center;
+        font-size: 11.5px;
+        line-height: 1.7;
+        color: var(--ink-3);
+        border-top: 1px solid var(--line-2);
+      }
+      .legal a {
+        color: var(--ink-2);
+      }
+      .legal .sep {
+        margin: 0 8px;
+        color: #d4d4da;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
 
-  :root{--ink:#0f0f0f;--ink-2:#6e6e76;--ink-3:#a1a1aa;--line:#ececef;--line-2:#f0f0f3;--paper:#fff;--paper-2:#f4f4f6}
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:"Space Grotesk",system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden}
-  a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c9c9d0}
-  a:hover{text-decoration-color:var(--ink)}
-  ::selection{background:var(--ink);color:#fff}
-  .grid-bg{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 .5H60M.5 0V60' stroke='%23E7E7EB' stroke-dasharray='1 5'/%3E%3Cpath d='M24 30H36M30 24V36' stroke='%23DCDCE2' stroke-width='1.2'/%3E%3C/svg%3E");-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 38%,#000 25%,transparent 82%);mask-image:radial-gradient(ellipse 90% 70% at 50% 38%,#000 25%,transparent 82%);pointer-events:none;z-index:0}
-  .topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(14px,3vw,22px) clamp(16px,4vw,40px);background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(160%) blur(12px);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
-  .topbar.stuck{border-bottom-color:var(--line-2)}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
-  .brand span{font-size:18px;font-weight:600;letter-spacing:-.02em}
-  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
-  .tag{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8b8b93;white-space:nowrap;text-decoration:none}
-  a.tag:hover{color:var(--ink)}
-  .legal{position:relative;z-index:1;padding:20px clamp(16px,4vw,40px) 28px;text-align:center;font-size:11.5px;line-height:1.7;color:var(--ink-3);border-top:1px solid var(--line-2)}
-  .legal a{color:var(--ink-2)}
-  .legal .sep{margin:0 8px;color:#d4d4da}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+      .hero {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(32px, 6vw, 72px);
+        padding: clamp(20px, 5vw, 56px) clamp(16px, 4vw, 40px)
+          clamp(40px, 6vw, 72px);
+        max-width: 1180px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .pitch {
+        flex: 1 1 340px;
+        min-width: 0;
+        max-width: 520px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .eyebrow {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #8b8b93;
+      }
+      h1 {
+        margin-top: 14px;
+        font-size: clamp(30px, 6.6vw, 52px);
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+        text-wrap: balance;
+      }
+      .rotator {
+        display: grid;
+      }
+      .rotator span {
+        grid-area: 1/1;
+        opacity: 0;
+        transform: translateX(24px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.7s cubic-bezier(0.22, 0.7, 0.25, 1);
+      }
+      .rotator span.on {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .rotator span.out {
+        opacity: 0;
+        transform: translateX(-24px);
+      }
+      .sub {
+        margin-top: 16px;
+        font-size: clamp(15px, 2.2vw, 17px);
+        line-height: 1.6;
+        color: var(--ink-2);
+        max-width: 44ch;
+        text-wrap: pretty;
+      }
+      .wl {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        width: 100%;
+        margin-top: clamp(28px, 7vw, 34px);
+      }
+      .wl input {
+        flex: 1 1 210px;
+        min-width: 0;
+        padding: 17px 18px;
+        font-family: inherit;
+        font-size: 16px;
+        color: var(--ink);
+        background: #fff;
+        border: 1px solid #e2e2e8;
+        border-radius: 14px;
+        outline: none;
+        transition: border-color 0.18s;
+      }
+      .wl input::placeholder {
+        color: var(--ink-3);
+      }
+      .wl input:focus {
+        border-color: var(--ink);
+      }
+      .wl button {
+        flex: 1 1 120px;
+        padding: 17px 30px;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        background: var(--ink);
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.18s;
+      }
+      .wl button:hover {
+        background: #2a2a2e;
+      }
+      .wl button:active {
+        transform: translateY(1px);
+      }
+      .wl button:disabled {
+        opacity: 0.65;
+        cursor: default;
+      }
+      .note {
+        margin-top: 12px;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+      .done {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        margin-top: 28px;
+        padding: 18px 20px;
+        border: 1px solid var(--ink);
+        border-radius: 16px;
+      }
+      .done i {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        flex: none;
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+        font-style: normal;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .done span {
+        font-size: 15px;
+        line-height: 1.45;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .mark {
+        display: block;
+        width: 21px;
+        height: 19px;
+        flex: none;
+      }
+      .mark path {
+        fill: none;
+        stroke: var(--ink);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .showcase {
+        flex: 0 1 400px;
+        min-width: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        padding: 0 clamp(28px, 9vw, 56px);
+      }
+      .deck {
+        position: relative;
+        height: min(44vh, 460px);
+        aspect-ratio: 9/16;
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+        transform: translateX(-6%);
+        touch-action: pan-y;
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      @media (max-width: 720px) {
+        .deck {
+          height: min(58vh, 440px);
+        }
+        .hero {
+          gap: 26px;
+          align-content: start;
+          padding-top: 8px;
+        }
+        .pitch {
+          min-height: calc(100svh - 158px);
+          justify-content: center;
+        }
+        .showcase {
+          gap: 14px;
+          padding-top: 10px;
+        }
+        .cap {
+          font-size: 10px;
+        }
+      }
+      .deck figure {
+        position: absolute;
+        inset: 0;
+        margin: 0;
+        border-radius: 22px;
+        overflow: hidden;
+        background: var(--paper-2);
+        box-shadow:
+          0 1px 2px rgba(15, 15, 15, 0.06),
+          0 26px 60px -26px rgba(15, 15, 15, 0.4);
+        transition:
+          transform 0.7s cubic-bezier(0.22, 0.7, 0.25, 1),
+          opacity 0.7s ease;
+      }
+      .deck img {
+        display: block;
+        -webkit-user-drag: none;
+        user-select: none;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .deck-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .cap {
+        margin: 0;
+        min-height: 1.4em;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #8b8b93;
+        text-align: center;
+      }
+      .deck:active {
+        cursor: grabbing;
+      }
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+      .dots button {
+        appearance: none;
+        border: none;
+        padding: 0;
+        width: 26px;
+        height: 4px;
+        border-radius: 99px;
+        background: #dcdce2;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .dots button.on {
+        background: var(--ink);
+      }
+    </style>
+    <script src="https://getlaunchlist.com/js/widget-diy.js" defer></script>
+  </head>
+  <body>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Athlay home">
+        <svg class="mark" viewBox="6 8 28 24" aria-hidden="true">
+          <path
+            id="route"
+            d="M29.2027 23.5721L31.7938 27.8325C32.3797 28.7958 31.6473 30 30.4755 30H27.21C26.6662 30 26.1636 29.7246 25.8917 29.2775L24.1195 26.3637C23.8476 25.9166 23.3451 25.6412 22.8012 25.6412H17.2116C16.6678 25.6412 16.1652 25.9166 15.8933 26.3637L14.1211 29.2775C13.8492 29.7246 13.3467 30 12.8028 30H9.52452C8.35269 30 7.6203 28.7958 8.20621 27.8325L18.6125 10.7225C19.1984 9.75916 20.6632 9.75916 21.2491 10.7225L26.293 19.0155C26.8789 19.9789 26.1465 21.1831 24.9746 21.1831H19.841C19.2971 21.1831 18.7946 21.4585 18.5227 21.9056L16.3328 25.5062"
+          ></path>
+        </svg>
+        <span>Athlay</span>
+      </a>
+      <a class="tag" href="support/">iOS &middot; 2026</a>
+    </header>
 
-  .hero{position:relative;z-index:1;flex:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(32px,6vw,72px);padding:clamp(20px,5vw,56px) clamp(16px,4vw,40px) clamp(40px,6vw,72px);max-width:1180px;width:100%;margin:0 auto}
-  .pitch{flex:1 1 340px;min-width:0;max-width:520px;display:flex;flex-direction:column;align-items:flex-start}
-  .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#8b8b93}
-  h1{margin-top:14px;font-size:clamp(30px,6.6vw,52px);font-weight:700;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
-  .rotator{display:grid}
-  .rotator span{grid-area:1/1;opacity:0;transform:translateX(24px);transition:opacity .55s ease,transform .7s cubic-bezier(.22,.7,.25,1)}
-  .rotator span.on{opacity:1;transform:translateX(0)}
-  .rotator span.out{opacity:0;transform:translateX(-24px)}
-  .sub{margin-top:16px;font-size:clamp(15px,2.2vw,17px);line-height:1.6;color:var(--ink-2);max-width:44ch;text-wrap:pretty}
-  .wl{display:flex;flex-wrap:wrap;gap:12px;width:100%;margin-top:clamp(28px,7vw,34px)}
-  .wl input{flex:1 1 210px;min-width:0;padding:17px 18px;font-family:inherit;font-size:16px;color:var(--ink);background:#fff;border:1px solid #e2e2e8;border-radius:14px;outline:none;transition:border-color .18s}
-  .wl input::placeholder{color:var(--ink-3)}
-  .wl input:focus{border-color:var(--ink)}
-  .wl button{flex:1 1 120px;padding:17px 30px;font-family:inherit;font-size:16px;font-weight:600;color:#fff;background:var(--ink);border:none;border-radius:14px;cursor:pointer;white-space:nowrap;transition:background .18s}
-  .wl button:hover{background:#2a2a2e}
-  .wl button:active{transform:translateY(1px)}
-  .wl button:disabled{opacity:.65;cursor:default}
-  .note{margin-top:12px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
-  .done{display:flex;align-items:center;gap:12px;width:100%;margin-top:28px;padding:18px 20px;border:1px solid var(--ink);border-radius:16px}
-  .done i{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:8px;background:var(--ink);color:#fff;font-style:normal;font-size:14px;font-weight:700}
-  .done span{font-size:15px;line-height:1.45}
-  [hidden]{display:none!important}
-  .mark{display:block;width:21px;height:19px;flex:none}
-  .mark path{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .showcase{flex:0 1 400px;min-width:0;width:100%;display:flex;flex-direction:column;align-items:center;gap:18px;padding:0 clamp(28px,9vw,56px)}
-  .deck{position:relative;height:min(44vh,460px);aspect-ratio:9/16;width:auto;max-width:100%;margin:0 auto;transform:translateX(-6%);touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
-  @media (max-width:720px){.deck{height:min(58vh,440px)}.hero{gap:26px;align-content:start;padding-top:8px}.pitch{min-height:calc(100svh - 158px);justify-content:center}.showcase{gap:14px;padding-top:10px}.cap{font-size:10px}}
-  .deck figure{position:absolute;inset:0;margin:0;border-radius:22px;overflow:hidden;background:var(--paper-2);box-shadow:0 1px 2px rgba(15,15,15,.06),0 26px 60px -26px rgba(15,15,15,.4);transition:transform .7s cubic-bezier(.22,.7,.25,1),opacity .7s ease}
-  .deck img{display:block;-webkit-user-drag:none;user-select:none;width:100%;height:100%;object-fit:cover}
-  .deck-meta{display:flex;flex-direction:column;align-items:center;gap:14px}
-  .cap{margin:0;min-height:1.4em;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#8b8b93;text-align:center}
-  .deck:active{cursor:grabbing}
-  .dots{display:flex;gap:8px}
-  .dots button{appearance:none;border:none;padding:0;width:26px;height:4px;border-radius:99px;background:#dcdce2;cursor:pointer;transition:background .3s}
-  .dots button.on{background:var(--ink)}
-</style>
-</head>
-<body>
-<div class="grid-bg" aria-hidden="true"></div>
-<header class="topbar">
-  <a class="brand" href="/" aria-label="Athlay home">
-    <svg class="mark" viewBox="6 8 28 24" aria-hidden="true"><path id="route" d="M29.2027 23.5721L31.7938 27.8325C32.3797 28.7958 31.6473 30 30.4755 30H27.21C26.6662 30 26.1636 29.7246 25.8917 29.2775L24.1195 26.3637C23.8476 25.9166 23.3451 25.6412 22.8012 25.6412H17.2116C16.6678 25.6412 16.1652 25.9166 15.8933 26.3637L14.1211 29.2775C13.8492 29.7246 13.3467 30 12.8028 30H9.52452C8.35269 30 7.6203 28.7958 8.20621 27.8325L18.6125 10.7225C19.1984 9.75916 20.6632 9.75916 21.2491 10.7225L26.293 19.0155C26.8789 19.9789 26.1465 21.1831 24.9746 21.1831H19.841C19.2971 21.1831 18.7946 21.4585 18.5227 21.9056L16.3328 25.5062"></path></svg>
-    <span>Athlay</span>
-  </a>
-  <a class="tag" href="support/">iOS &middot; 2026</a>
-</header>
+    <main class="hero" id="top">
+      <section class="pitch">
+        <span class="eyebrow">Early access &middot; Waitlist open</span>
+        <h1 class="rotator" id="rotator">
+          <span class="on"
+            >Make your stats scroll-stopping
+            <em style="font-style: normal; color: #4d49fc"
+              >with Athlay</em
+            ></span
+          >
+          <span aria-hidden="true"
+            >Turn your daily miles into social highlights
+            <em style="font-style: normal; color: #4d49fc"
+              >with Athlay</em
+            ></span
+          >
+          <span aria-hidden="true"
+            >Craft beautiful stories out of your sweat
+            <em style="font-style: normal; color: #4d49fc"
+              >with Athlay</em
+            ></span
+          >
+          <span aria-hidden="true"
+            >Flex your stats beautifully
+            <em style="font-style: normal; color: #4d49fc"
+              >with Athlay</em
+            ></span
+          >
+        </h1>
+        <p class="sub">
+          Athlay lays your route, pace, distance and dozens of other metrics
+          over your own photos, or exports them on a transparent background.
+        </p>
+        <form
+          id="wl"
+          class="launchlist-form wl"
+          action="https://getlaunchlist.com/s/PUfvg8"
+          method="POST"
+        >
+          <input type="hidden" name="_source" value="athlay-web" />
+          <input
+            type="email"
+            name="email"
+            placeholder="you@email.com"
+            autocomplete="email"
+            required
+            aria-label="Email address"
+          />
+          <button type="submit">Join waitlist</button>
+        </form>
+        <p class="note" id="wl-note">One email at launch. Nothing else.</p>
+        <div class="done" id="wl-done" hidden>
+          <i aria-hidden="true">&#10003;</i>
+          <span
+            >You&rsquo;re on the list. We&rsquo;ll email you the moment Athlay
+            lands on iOS.</span
+          >
+        </div>
+      </section>
 
-<main class="hero" id="top">
-  <section class="pitch">
-    <span class="eyebrow">Early access &middot; Waitlist open</span>
-    <h1 class="rotator" id="rotator">
-      <span class="on">Make your stats scroll-stopping <em style="font-style:normal;color:#4D49FC">with Athlay</em></span>
-      <span aria-hidden="true">Turn your daily miles into social highlights <em style="font-style:normal;color:#4D49FC">with Athlay</em></span>
-      <span aria-hidden="true">Craft beautiful stories out of your sweat <em style="font-style:normal;color:#4D49FC">with Athlay</em></span>
-      <span aria-hidden="true">Flex your stats beautifully <em style="font-style:normal;color:#4D49FC">with Athlay</em></span>
-    </h1>
-    <p class="sub">Athlay lays your route, pace, distance and dozens of other metrics over your own photos, or exports them on a transparent background.</p>
-    <form id="wl" class="launchlist-form wl" action="https://getlaunchlist.com/s/CSikuJ" method="POST">
-      <input type="hidden" name="_source" value="athlay-web" />
-      <input type="email" name="email" placeholder="you@email.com" autocomplete="email" required aria-label="Email address" />
-      <button type="submit">Join waitlist</button>
-    </form>
-    <p class="note" id="wl-note">One email at launch. Nothing else.</p>
-    <div class="done" id="wl-done" hidden>
-      <i aria-hidden="true">&#10003;</i>
-      <span>You&rsquo;re on the list. We&rsquo;ll email you the moment Athlay lands on iOS.</span>
-    </div>
-  </section>
+      <section class="showcase">
+        <div class="deck" id="deck">
+          <figure
+            data-cap="Copenhagen Half &middot; race sticker over your own shot"
+          >
+            <img
+              src="assets/stickers/copenhagen-half.png"
+              alt="Athlay sticker over a half marathon race photo: Copenhagen Half Maraton, 21.33 km in 01:20:55"
+              loading="eager"
+              decoding="async"
+              draggable="false"
+            />
+          </figure>
+          <figure data-cap="Brolopet HM &middot; stats set in your own type">
+            <img
+              src="assets/stickers/brolopet-hm.png"
+              alt="Athlay sticker over a finish-line photo by the &Oslash;resund Bridge: Brolopet HM, total time 1h 52m 16s"
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+            />
+          </figure>
+          <figure data-cap="Weekly recap &middot; every workout in one card">
+            <img
+              src="assets/stickers/week-recap.png"
+              alt="Athlay weekly recap sticker: 45.39 km across three workouts"
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+            />
+          </figure>
+          <figure
+            data-cap="Berlin Half &middot; frosted card with elevation line"
+          >
+            <img
+              src="assets/stickers/regular-overlay.png"
+              alt="Athlay sticker over a Berlin street photo: Berlin Half Marathon, 21.30 km"
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+            />
+          </figure>
+        </div>
+        <div class="deck-meta">
+          <div class="dots" id="dots">
+            <button type="button" aria-label="Sticker 1" class="on"></button>
+            <button type="button" aria-label="Sticker 2"></button>
+            <button type="button" aria-label="Sticker 3"></button>
+            <button type="button" aria-label="Sticker 4"></button>
+          </div>
+        </div>
+      </section>
+    </main>
 
-  <section class="showcase">
-    <div class="deck" id="deck">
-      <figure data-cap="Copenhagen Half &middot; race sticker over your own shot"><img src="assets/stickers/copenhagen-half.png" alt="Athlay sticker over a half marathon race photo: Copenhagen Half Maraton, 21.33 km in 01:20:55" loading="eager" decoding="async" draggable="false" /></figure>
-      <figure data-cap="Brolopet HM &middot; stats set in your own type"><img src="assets/stickers/brolopet-hm.png" alt="Athlay sticker over a finish-line photo by the &Oslash;resund Bridge: Brolopet HM, total time 1h 52m 16s" loading="lazy" decoding="async" draggable="false" /></figure>
-      <figure data-cap="Weekly recap &middot; every workout in one card"><img src="assets/stickers/week-recap.png" alt="Athlay weekly recap sticker: 45.39 km across three workouts" loading="lazy" decoding="async" draggable="false" /></figure>
-      <figure data-cap="Berlin Half &middot; frosted card with elevation line"><img src="assets/stickers/berlin-half.png" alt="Athlay sticker over a Berlin street photo: Berlin Half Marathon, 21.30 km" loading="lazy" decoding="async" draggable="false" /></figure>
-    </div>
-    <div class="deck-meta">
-      <p class="cap" id="cap">Copenhagen Half &middot; race sticker over your own shot</p>
-      <div class="dots" id="dots">
-        <button type="button" aria-label="Sticker 1" class="on"></button>
-        <button type="button" aria-label="Sticker 2"></button>
-        <button type="button" aria-label="Sticker 3"></button>
-        <button type="button" aria-label="Sticker 4"></button>
-      </div>
-    </div>
-  </section>
-</main>
+    <footer class="legal">
+      &copy; 2026 Maksym Slobodianyk &middot; Uralsk&aacute; 689/7,
+      Bubene&#269;, 160 00 Prague, Czech Republic &middot; I&#268;O 24055557<br />
+      <a href="privacy/">Privacy Policy</a><span class="sep">&middot;</span
+      ><a href="support/">Support</a>
+    </footer>
 
-<footer class="legal">
-  &copy; 2026 Maksym Slobodianyk &middot; Uralsk&aacute; 689/7, Bubene&#269;, 160 00 Prague, Czech Republic &middot; I&#268;O 24055557<br />
-  <a href="privacy/">Privacy Policy</a><span class="sep">&middot;</span><a href="support/">Support</a>
-</footer>
+    <script>
+      (function () {
+        var bar = document.querySelector(".topbar");
+        if (bar) {
+          var mark = function () {
+            bar.classList.toggle("stuck", window.scrollY > 4);
+          };
+          mark();
+          window.addEventListener("scroll", mark, { passive: true });
+        }
 
-<script>
-(function(){
-  var bar=document.querySelector(".topbar");
-  if(bar){
-    var mark=function(){bar.classList.toggle("stuck",window.scrollY>4)};
-    mark();window.addEventListener("scroll",mark,{passive:true});
-  }
+        var reduce =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var path = document.getElementById("route");
+        if (path) {
+          var len = path.getTotalLength(),
+            dur = reduce ? 1 : 2200;
+          path.style.transition = "none";
+          path.style.strokeDasharray = len;
+          path.style.strokeDashoffset = len;
+          path.getBoundingClientRect();
+          path.style.transition =
+            "stroke-dashoffset " + dur + "ms cubic-bezier(.25,.6,.3,1)";
+          path.style.strokeDashoffset = "0";
+        }
 
-  var path=document.getElementById("route");
-  if(path){
-    var len=path.getTotalLength(),dur=reduce?1:2200;
-    path.style.transition="none";path.style.strokeDasharray=len;path.style.strokeDashoffset=len;
-    path.getBoundingClientRect();
-    path.style.transition="stroke-dashoffset "+dur+"ms cubic-bezier(.25,.6,.3,1)";
-    path.style.strokeDashoffset="0";
-  }
+        var FAN = [
+          { t: "translate(0, 0) rotate(0deg) scale(1)", z: 4, o: 1 },
+          { t: "translate(8%, -2.5%) rotate(5deg) scale(0.95)", z: 3, o: 1 },
+          { t: "translate(15%, -4.5%) rotate(9.5deg) scale(0.9)", z: 2, o: 1 },
+          { t: "translate(5%, 1.5%) rotate(-3deg) scale(0.85)", z: 1, o: 0 },
+        ];
+        var deck = document.getElementById("deck"),
+          cap = document.getElementById("cap"),
+          dots = document.getElementById("dots");
+        var cards = deck ? [].slice.call(deck.children) : [],
+          dotEls = dots ? [].slice.call(dots.children) : [],
+          i = 0,
+          timer;
 
-  var FAN=[
-    {t:"translate(0, 0) rotate(0deg) scale(1)",z:4,o:1},
-    {t:"translate(8%, -2.5%) rotate(5deg) scale(0.95)",z:3,o:1},
-    {t:"translate(15%, -4.5%) rotate(9.5deg) scale(0.9)",z:2,o:1},
-    {t:"translate(5%, 1.5%) rotate(-3deg) scale(0.85)",z:1,o:0}
-  ];
-  var deck=document.getElementById("deck"),cap=document.getElementById("cap"),dots=document.getElementById("dots");
-  var cards=deck?[].slice.call(deck.children):[],dotEls=dots?[].slice.call(dots.children):[],i=0,timer;
+        function layout() {
+          var n = cards.length;
+          if (!n) return;
+          cards.forEach(function (c, idx) {
+            var f = FAN[Math.min((idx - i + n) % n, FAN.length - 1)];
+            c.style.transform = f.t;
+            c.style.zIndex = f.z;
+            c.style.opacity = f.o;
+          });
+          if (cap) cap.innerHTML = cards[i].getAttribute("data-cap") || "";
+          dotEls.forEach(function (b, idx) {
+            b.classList.toggle("on", idx === i);
+          });
+        }
+        function go(next) {
+          var n = cards.length || 1;
+          i = ((next % n) + n) % n;
+          layout();
+        }
+        function start() {
+          if (!reduce && cards.length > 1)
+            timer = setInterval(function () {
+              go(i + 1);
+            }, 3600);
+        }
 
-  function layout(){
-    var n=cards.length;if(!n)return;
-    cards.forEach(function(c,idx){
-      var f=FAN[Math.min((idx-i+n)%n,FAN.length-1)];
-      c.style.transform=f.t;c.style.zIndex=f.z;c.style.opacity=f.o;
-    });
-    if(cap)cap.innerHTML=cards[i].getAttribute("data-cap")||"";
-    dotEls.forEach(function(b,idx){b.classList.toggle("on",idx===i)});
-  }
-  function go(next){var n=cards.length||1;i=((next%n)+n)%n;layout()}
-  function start(){if(!reduce&&cards.length>1)timer=setInterval(function(){go(i+1)},3600)}
+        dotEls.forEach(function (b, idx) {
+          b.addEventListener("click", function () {
+            clearInterval(timer);
+            go(idx);
+          });
+        });
 
-  dotEls.forEach(function(b,idx){b.addEventListener("click",function(){clearInterval(timer);go(idx)})});
+        if (deck) {
+          var dx0 = null;
+          deck.addEventListener("dragstart", function (e) {
+            e.preventDefault();
+          });
+          var downCard = -1;
+          deck.addEventListener("pointerdown", function (e) {
+            dx0 = e.clientX;
+            var fig = e.target.closest ? e.target.closest("figure") : null;
+            downCard = fig ? cards.indexOf(fig) : -1;
+            if (deck.setPointerCapture)
+              try {
+                deck.setPointerCapture(e.pointerId);
+              } catch (err) {}
+          });
+          var release = function (e) {
+            if (dx0 === null) return;
+            var dx = e.clientX - dx0;
+            dx0 = null;
+            clearInterval(timer);
+            if (Math.abs(dx) < 36) {
+              if (downCard > -1 && downCard !== i) go(downCard);
+              return;
+            }
+            go(i + (dx < 0 ? 1 : -1));
+          };
+          deck.addEventListener("pointerup", release);
+          deck.addEventListener("pointercancel", function () {
+            dx0 = null;
+          });
+        }
+        layout();
+        start();
 
-  if(deck){
-    var dx0=null;
-    deck.addEventListener("dragstart",function(e){e.preventDefault()});
-    var downCard=-1;
-    deck.addEventListener("pointerdown",function(e){
-      dx0=e.clientX;
-      var fig=e.target.closest?e.target.closest("figure"):null;
-      downCard=fig?cards.indexOf(fig):-1;
-      if(deck.setPointerCapture)try{deck.setPointerCapture(e.pointerId)}catch(err){}
-    });
-    var release=function(e){
-      if(dx0===null)return;
-      var dx=e.clientX-dx0;dx0=null;
-      clearInterval(timer);
-      if(Math.abs(dx)<36){if(downCard>-1&&downCard!==i)go(downCard);return}
-      go(i+(dx<0?1:-1));
-    };
-    deck.addEventListener("pointerup",release);
-    deck.addEventListener("pointercancel",function(){dx0=null});
-  }
-  layout();start();
+        var form = document.getElementById("wl"),
+          note = document.getElementById("wl-note"),
+          done = document.getElementById("wl-done");
+        form.addEventListener("submit", function (e) {
+          if (!form.reportValidity()) return;
+          e.preventDefault();
+          var btn = form.querySelector("button");
+          btn.disabled = true;
+          btn.textContent = "Joining\u2026";
+          var fin = function () {
+            form.hidden = true;
+            note.hidden = true;
+            done.hidden = false;
+          };
+          fetch(form.action, {
+            method: "POST",
+            mode: "no-cors",
+            body: new URLSearchParams(new FormData(form)),
+          })
+            .then(fin)
+            .catch(fin);
+        });
 
-  var form=document.getElementById("wl"),note=document.getElementById("wl-note"),done=document.getElementById("wl-done");
-  form.addEventListener("submit",function(e){
-    if(!form.reportValidity())return;
-    e.preventDefault();
-    var btn=form.querySelector("button");btn.disabled=true;btn.textContent="Joining\u2026";
-    var fin=function(){form.hidden=true;note.hidden=true;done.hidden=false};
-    fetch(form.action,{method:"POST",mode:"no-cors",body:new URLSearchParams(new FormData(form))}).then(fin).catch(fin);
-  });
-
-  var lines=document.querySelectorAll("#rotator span"),ri=0;
-  if(lines.length>1&&!reduce){
-    setInterval(function(){
-      lines[ri].classList.remove("on");lines[ri].classList.add("out");
-      lines[ri].setAttribute("aria-hidden","true");
-      var prev=lines[ri];
-      ri=(ri+1)%lines.length;
-      lines[ri].removeAttribute("aria-hidden");
-      lines[ri].classList.remove("out");lines[ri].classList.add("on");
-      setTimeout(function(){prev.classList.remove("out")},650);
-    },4200);
-  }
-})();
-</script>
-</body>
+        var lines = document.querySelectorAll("#rotator span"),
+          ri = 0;
+        if (lines.length > 1 && !reduce) {
+          setInterval(function () {
+            lines[ri].classList.remove("on");
+            lines[ri].classList.add("out");
+            lines[ri].setAttribute("aria-hidden", "true");
+            var prev = lines[ri];
+            ri = (ri + 1) % lines.length;
+            lines[ri].removeAttribute("aria-hidden");
+            lines[ri].classList.remove("out");
+            lines[ri].classList.add("on");
+            setTimeout(function () {
+              prev.classList.remove("out");
+            }, 650);
+          }, 4200);
+        }
+      })();
+    </script>
+  </body>
 </html>
